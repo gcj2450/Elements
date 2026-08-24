@@ -188,6 +188,11 @@ namespace Elements.Fittings
             var toAdd = new Fitting[2];
             var oldDiameter = pipe.Diameter;
             pipe.Diameter = newDiameter;
+            if (pipe.ShapeType == ShapeType.Circle)
+            {
+                pipe.Width = newDiameter;
+                pipe.Height = newDiameter;
+            }
             var nextReducer = GetWholeReducer(pipe.TrunkSideComponent as IReducer);
             var previousReducer = GetWholeReducer(pipe.BranchSideComponents.FirstOrDefault() as IReducer);
             var branchSideComponent = previousReducer == null ? pipe.BranchSideComponents.FirstOrDefault()

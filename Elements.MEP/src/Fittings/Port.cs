@@ -8,6 +8,14 @@ namespace Elements.Fittings
 {
     public partial class Port
     {
+        /// <summary>
+        /// 端口ID
+        /// </summary>
+        public string Id { get; set; }
+        public string OwnerComponentId { get; set; }
+
+        public string ConnectedPortId { get; set; }
+
         public static bool ShowArrows = false;
 
         public bool IsTrunk { get; set; }
@@ -21,11 +29,25 @@ namespace Elements.Fittings
             return $"Diameter: {Diameter} Position: {Position.X.ToString("0.00")}, {Position.Y.ToString("0.00")}, {Position.Z.ToString("0.00")}";
         }
 
+        /// <summary>
+        /// 兼容原版的默认圆形端口ShapeType.Circle
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="direction"></param>
+        /// <param name="diameter"></param>
         public Port(Vector3 position, Vector3 direction, double diameter)
+            : this(position, direction, diameter, diameter, ShapeType.Circle)
+        {
+        }
+
+        public Port(Vector3 position, Vector3 direction, double width, double height, ShapeType shapeType = ShapeType.Circle)
         {
             this.Position = position;
             this.Direction = direction;
-            this.Diameter = diameter;
+            this.Width = width;
+            this.Height = height;
+            this.ShapeType = shapeType;
+            this.Diameter = shapeType == ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height);
         }
 
         /// <summary>

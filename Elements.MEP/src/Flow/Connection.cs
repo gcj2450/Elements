@@ -15,6 +15,14 @@ namespace Elements.Flow
 
         public bool? IsLoop { get; set; }
 
+        public void SetShape(double width, double height, Elements.Fittings.ShapeType shapeType)
+        {
+            Width = width;
+            Height = height;
+            ShapeType = shapeType;
+            Diameter = shapeType == Elements.Fittings.ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height);
+        }
+
         public override void UpdateRepresentations()
         {
             if (this.Representation == null)
@@ -22,7 +30,9 @@ namespace Elements.Flow
                 this.Representation = new Representation(new List<SolidOperation>());
             }
             this.Representation.SolidOperations = new List<SolidOperation>();
-            var circle = new Circle(Diameter > 0 ? (Diameter - DIAMETER_INSET) / 2 : DEFAULT_CONNECTION_DIAMETER).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var width = ShapeType == Elements.Fittings.ShapeType.Circle ? (Diameter > 0 ? Diameter - DIAMETER_INSET : DEFAULT_CONNECTION_DIAMETER) : (Width > 0 ? Math.Max(Width - DIAMETER_INSET, 0.001) : DEFAULT_CONNECTION_DIAMETER);
+            var height = ShapeType == Elements.Fittings.ShapeType.Circle ? width : (Height > 0 ? Math.Max(Height - DIAMETER_INSET, 0.001) : width);
+            var circle = Elements.Fittings.PipeProfile.Create(Diameter, width, height, ShapeType);
 
             var s = new Sweep(circle, Path(), 0, 0, 0, false);
             this.Representation.SolidOperations.Add(s);
@@ -33,6 +43,12 @@ namespace Elements.Flow
         {
             Id = id;
             Name = name;
+        }
+
+        public Connection(Node start, Node end, double width, double height, Elements.Fittings.ShapeType shapeType, double flow = 0)
+            : this(start, end, shapeType == Elements.Fittings.ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height), flow)
+        {
+            SetShape(width, height, shapeType);
         }
 
         public Vector3 Direction()
@@ -52,7 +68,7 @@ namespace Elements.Flow
 
         public override string ToString()
         {
-            return $"Connection-Diameter: {this.Diameter}m Start: {this.Start.Position} Direction: {this.Direction()} End: {this.End.Position}";
+            return $"Connection-Size: {this.Width}x{this.Height}m ({this.ShapeType}) Start: {this.Start.Position} Direction: {this.Direction()} End: {this.End.Position}";
         }
     }
 }

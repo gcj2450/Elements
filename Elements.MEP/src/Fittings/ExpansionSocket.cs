@@ -62,17 +62,16 @@ namespace Elements.Fittings
 
         public override void UpdateRepresentations()
         {
-            var radius = Start.Diameter / 2;
             var localStart = Start.Position - Transform.Origin;
             var localEnd = End.Position - Transform.Origin;
 
             var line = new Line(localEnd, localStart);
-            var profile = new Circle(Vector3.Origin, radius).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var profile = PipeProfile.Create(Start);
             var main = new Sweep(profile, line, 0, 0, 0, false);
 
             var direction = (localStart - localEnd).Unitized();
             line = new Line(localStart, localStart + direction * InsertionDepth);
-            var outetProfile = new Circle(Vector3.Origin, radius * 1.2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var outetProfile = PipeProfile.Create(Start.Diameter * 1.2, Start.Width * 1.2, Start.Height * 1.2, Start.ShapeType);
             var collarProfile = new Profile(outetProfile, profile);
             var collar = new Sweep(collarProfile, line, 0, 0, 0, false);
 

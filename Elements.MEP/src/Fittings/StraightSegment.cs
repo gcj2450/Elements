@@ -19,7 +19,8 @@ namespace Elements.Fittings
                                                                                                                                     Guid.NewGuid(),
                                                                                                                                     "")
         {
-            if (!allowMismatch && end.Diameter != start.Diameter)
+            if (!allowMismatch && (!end.Diameter.ApproximatelyEquals(start.Diameter) || end.ShapeType != start.ShapeType ||
+                                   (end.ShapeType != ShapeType.Circle && (end.Width != start.Width || end.Height != start.Height))))
             {
                 throw new ArgumentException("The two pipe end connectors are not the same size, this is not allowed");
             }
@@ -28,6 +29,9 @@ namespace Elements.Fittings
                 throw new ArgumentException("Cannot create a pipe with 0 diameter.  Check the size of your ends and try again.");
             }
             this.Diameter = end.Diameter;
+            this.Width = end.Width > 0 ? end.Width : end.Diameter;
+            this.Height = end.Height > 0 ? end.Height : end.Diameter;
+            this.ShapeType = end.ShapeType;
             this.WallThickness = wallThickness;
             this.End = end;
             this.Start = start;
@@ -58,12 +62,7 @@ namespace Elements.Fittings
             }
             else
             {
-                var diameter = this.Diameter;
-                if (diameter == 0)
-                {
-                    diameter = 0.001;
-                }
-                var profile = new Circle(Vector3.Origin, diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+                var profile = PipeProfile.Create(this.Diameter, this.Width, this.Height, this.ShapeType);
                 var line = new Line(this.End.Position, this.Start.Position);
                 var pipe = new Sweep(profile, line, 0, 0, 0, false);
                 Representation = new Representation(new List<SolidOperation> { pipe });

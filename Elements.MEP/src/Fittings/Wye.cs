@@ -133,7 +133,7 @@ namespace Elements.Fittings
             var branchPosition = SideBranch.Position;
             var origin = Transform.Origin;
 
-            var trunkProfile = new Circle(new Vector3(), Trunk.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var trunkProfile = PipeProfile.Create(Trunk);
             var trunkLine = new Line(Vector3.Origin, trunkPosition - origin);
             if (UseRepresentationInstances)
             {
@@ -141,7 +141,7 @@ namespace Elements.Fittings
             }
             var trunk = new Sweep(trunkProfile, trunkLine, 0, 0, 0, false);
 
-            var mainProfile = new Circle(new Vector3(), MainBranch.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var mainProfile = PipeProfile.Create(MainBranch);
             var mainLine = new Line(Vector3.Origin, mainPosition - origin);
             if (UseRepresentationInstances)
             {
@@ -149,7 +149,7 @@ namespace Elements.Fittings
             }
             var main = new Sweep(mainProfile, mainLine, 0, 0, 0, false);
 
-            var branchProfile = new Circle(new Vector3(), SideBranch.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var branchProfile = PipeProfile.Create(SideBranch);
             var branchLine = new Line(Vector3.Origin, branchPosition - origin);
             if (UseRepresentationInstances)
             {

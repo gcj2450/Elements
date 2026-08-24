@@ -126,19 +126,19 @@ namespace Elements.Fittings
             var positionC = BranchC.Position;
             var origin = this.Transform.Origin;
 
-            var trunkProfile = new Circle(new Vector3(), this.Trunk.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var trunkProfile = PipeProfile.Create(this.Trunk);
             var trunkLine = new Line(Vector3.Origin, trunkPosition - origin);
             var trunk = new Sweep(trunkProfile, trunkLine, 0, 0, 0, false);
 
-            var profileA = new Circle(new Vector3(), this.BranchA.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var profileA = PipeProfile.Create(this.BranchA);
             var lineA = new Line(Vector3.Origin, positionA - origin);
             var A = new Sweep(profileA, lineA, 0, 0, 0, false);
 
-            var profileB = new Circle(new Vector3(), this.BranchB.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var profileB = PipeProfile.Create(this.BranchB);
             var lineB = new Line(Vector3.Origin, positionB - origin);
             var B = new Sweep(profileB, lineB, 0, 0, 0, false);
 
-            var profileC = new Circle(new Vector3(), this.BranchC.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var profileC = PipeProfile.Create(this.BranchC);
             var lineC = new Line(Vector3.Origin, positionC - origin);
             var C = new Sweep(profileC, lineC, 0, 0, 0, false);
 

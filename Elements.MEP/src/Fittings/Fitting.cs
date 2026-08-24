@@ -78,24 +78,21 @@ namespace Elements.Fittings
                     continue;
                 }
 
-                var extensionDiameter = port.Dimensions.BodyDiameter;
-                if (extensionDiameter.ApproximatelyEquals(0) || extensionDiameter.ApproximatelyEquals(port.Diameter))
-                {
-                    extensionDiameter = port.Diameter * 1.2;
-                }
+                var portWidth = port.ShapeType == ShapeType.Circle ? port.Diameter : (port.Width > 0 ? port.Width : port.Diameter);
+                var portHeight = port.ShapeType == ShapeType.Circle ? port.Diameter : (port.Height > 0 ? port.Height : port.Diameter);
+                var extensionWidth = port.Dimensions.BodyDiameter;
+                if (extensionWidth.ApproximatelyEquals(0) || extensionWidth.ApproximatelyEquals(portWidth)) extensionWidth = portWidth * 1.2;
+                var extensionHeight = portHeight * (extensionWidth / Math.Max(portWidth, 0.000001));
 
                 var portTransform = new Transform(port.Position, port.Direction);
                 portTransform = portTransform.Concatenated(Transform.Inverted());
-                double bigDiameter = extensionDiameter;
-                double smallDiameter = port.Diameter;
-                if (bigDiameter < smallDiameter)
+                var bigProfile = PipeProfile.Create(port.Diameter, extensionWidth, extensionHeight, port.ShapeType).TransformedPolygon(portTransform);
+                var smallProfile = PipeProfile.Create(port.Diameter, portWidth, portHeight, port.ShapeType).TransformedPolygon(portTransform);
+                if (bigProfile.Area() < smallProfile.Area())
                 {
-                    (bigDiameter, smallDiameter) = (smallDiameter, bigDiameter);
+                    (bigProfile, smallProfile) = (smallProfile, bigProfile);
                 }
-
-                var bigCircle = new Circle(portTransform, bigDiameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
-                var smallCircle = new Circle(portTransform, smallDiameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
-                Profile profile = new Profile(bigCircle, smallCircle);
+                Profile profile = new Profile(bigProfile, smallProfile);
                 var extrude = new Extrude(profile, port.Dimensions.Extension, portTransform.ZAxis.Unitized());
                 extrudes.Add(extrude);
             }

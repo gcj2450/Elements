@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Elements.Benchmarks\Elements.Benchmarks.csproj" />
+    <ProjectReference Include="..\Elements.CodeGeneration\src\Elements.CodeGeneration.csproj" />
+    <ProjectReference Include="..\Elements.Components\src\Elements.Components.csproj" />
+    <ProjectReference Include="..\Elements.MEP\src\Elements.MEP.csproj" />
+    <ProjectReference Include="..\Elements.MEP\test\Elements.MEP.Tests.csproj" />
+    <ProjectReference Include="..\Elements.Serialization.DXF\src\Elements.Serialization.DXF.csproj" />
+    <ProjectReference Include="..\Elements.Serialization.DXF\tests\Elements.Serialization.DXF.Tests.csproj" />
+    <ProjectReference Include="..\Elements.Serialization.IFC\src\Elements.Serialization.IFC.csproj" />
+    <ProjectReference Include="..\Elements.Serialization.IFC\test\Elements.Serialization.IFC.Tests.csproj" />
+    <ProjectReference Include="..\Elements.Serialization.SVG\src\Elements.Serialization.SVG.csproj" />
+    <ProjectReference Include="..\Elements.Serialization.SVG\test\Elements.Serialization.SVG.Tests.csproj" />
+    <ProjectReference Include="..\Elements\src\Elements.csproj" />
+  </ItemGroup>
+
+</Project>

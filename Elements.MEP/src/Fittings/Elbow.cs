@@ -8,7 +8,22 @@ namespace Elements.Fittings
 {
     public partial class Elbow
     {
+        /// <summary>
+        /// 兼容旧版的圆形管道
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="startDirection"></param>
+        /// <param name="endDirection"></param>
+        /// <param name="sideLength"></param>
+        /// <param name="diameter"></param>
+        /// <param name="material"></param>
+        /// <param name="bendRadius"></param>
         public Elbow(Vector3 position, Vector3 startDirection, Vector3 endDirection, double sideLength, double diameter, Material material = null, double? bendRadius = 0) :
+            this(position, startDirection, endDirection, sideLength, diameter, diameter, ShapeType.Circle, material, bendRadius)
+        {
+        }
+
+        public Elbow(Vector3 position, Vector3 startDirection, Vector3 endDirection, double sideLength, double width, double height, ShapeType shapeType, Material material = null, double? bendRadius = 0) :
                                                                         base(false, FittingLocator.Empty(), new Transform(position),
                                                                             material == null ? FittingTreeRouting.DefaultFittingMaterial : material,
                                                                             new Representation(new List<SolidOperation>()),
@@ -18,18 +33,21 @@ namespace Elements.Fittings
         {
             this.Start = new Port(position + startDirection.Unitized() * sideLength + BendRadiusOffset(bendRadius, startDirection),
                                   startDirection,
-                                  diameter);
+                                  width, height, shapeType);
             this.End = new Port(position + endDirection.Unitized() * sideLength + BendRadiusOffset(bendRadius, endDirection),
                                 endDirection,
-                                diameter);
-            this.Diameter = diameter;
+                                width, height, shapeType);
+            this.Diameter = shapeType == ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height);
+            this.Width = width;
+            this.Height = height;
+            this.ShapeType = shapeType;
             this.Angle = Math.Abs(180 - this.Start.Direction.AngleTo(this.End.Direction));
             this.BendRadius = bendRadius.Value;
         }
 
         public override void UpdateRepresentations()
         {
-            var profile = new Circle(Vector3.Origin, Start.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var profile = PipeProfile.Create(Start);
 
             var oneSweep = new Sweep(profile,
                                      GetSweepLine(),

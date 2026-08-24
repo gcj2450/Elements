@@ -17,6 +17,25 @@ namespace Elements.Fittings
                                  Material material = null) :
             base("Inspection Opening", position, direction, length, diameter, material)
         {
+            InitializeSide(direction, sideDirection, topLength, length);
+        }
+
+        public InspectionOpening(Vector3 position,
+                                 Vector3 direction,
+                                 Vector3 sideDirection,
+                                 double length,
+                                 double topLength,
+                                 double width,
+                                 double height,
+                                 ShapeType shapeType,
+                                 Material material = null) :
+            base("Inspection Opening", position, direction, length, width, height, shapeType, material)
+        {
+            InitializeSide(direction, sideDirection, topLength, length);
+        }
+
+        private void InitializeSide(Vector3 direction, Vector3 sideDirection, double topLength, double length)
+        {
             if (topLength > length)
             {
                 throw new Exception("Opening length is not inside coupler range.");
@@ -66,14 +85,14 @@ namespace Elements.Fittings
 
         public override void UpdateRepresentations()
         {
-            var radius = Start.Diameter / 2;
+            var profile = PipeProfile.Create(Start);
+            var sideSize = Math.Max(Start.Width > 0 ? Start.Width : Start.Diameter, Start.Height > 0 ? Start.Height : Start.Diameter);
 
             var line = new Line(End.Position - Transform.Origin, Start.Position - Transform.Origin);
-            var profile = new Circle(Vector3.Origin, radius).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
             var main = new Sweep(profile, line, 0, 0, 0, false);
 
             var middlePoint = line.Mid();
-            var sideLine = new Line(middlePoint, middlePoint + SideDirection * radius * 1.5);
+            var sideLine = new Line(middlePoint, middlePoint + SideDirection * sideSize * 0.75);
             var side = new Sweep(profile, sideLine, 0, 0, 0, false);
 
             var arrows = this.Start.GetArrow(this.Transform.Origin).Concat(End.GetArrow(Transform.Origin));

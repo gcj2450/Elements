@@ -215,7 +215,7 @@ namespace Elements.Fittings
 
             var mainOutgoing = Tree.GetOutgoingConnection(node);
             var loopOutgoing = outgoing.Where(c => c.IsLoop == true) ?? new List<Connection>();
-            var invertedLoopOutgoing = loopOutgoing.Select(lc => new Connection(lc.End, lc.Start, lc.Diameter, lc.Flow));
+            var invertedLoopOutgoing = loopOutgoing.Select(lc => new Connection(lc.End, lc.Start, lc.Diameter, lc.Flow) { Width = lc.Width, Height = lc.Height, ShapeType = lc.ShapeType });
 
             var allIncomingIncludingLoops = new List<Connection>(incoming);
             allIncomingIncludingLoops.AddRange(invertedLoopOutgoing);
@@ -405,6 +405,9 @@ namespace Elements.Fittings
 
             // TODO We should get rid of the need for WyeSettings. Tee part should be able to replace the WyeSetting entirely.
             var wye = new Wye(incoming1.End.Position, outgoing.Direction(), mainConnection.Direction().Negate(), branchConnection.Direction().Negate(), wyes, DefaultFittingMaterial);
+            ApplyShape(wye.Trunk, outgoing, trunkDiameter);
+            ApplyShape(wye.MainBranch, mainConnection, mainDiameter);
+            ApplyShape(wye.SideBranch, branchConnection, branchDiameter);
             wye.Trunk.Dimensions = new PortDimensions(mainExtension, 0, 0);
             wye.MainBranch.Dimensions = new PortDimensions(mainExtension, 0, 0);
             wye.SideBranch.Dimensions = new PortDimensions(branchExtension, 0, 0);
@@ -480,6 +483,10 @@ namespace Elements.Fittings
                                           main.Direction().Negate(),
                                           branchB.Direction().Negate(),
                                           branchC.Direction().Negate(), settings);
+                    ApplyShape(cross.Trunk, outgoing, settings.Diameter);
+                    ApplyShape(cross.BranchA, main, settings.Diameter_A);
+                    ApplyShape(cross.BranchB, branchB, settings.Diameter_B);
+                    ApplyShape(cross.BranchC, branchC, settings.Diameter_C);
                     cross.Trunk.Dimensions = new PortDimensions(extension, 0, 0);
                     cross.BranchA.Dimensions = new PortDimensions(extension, 0, 0);
                     cross.BranchB.Dimensions = new PortDimensions(extensionB, 0, 0);
@@ -516,14 +523,16 @@ namespace Elements.Fittings
             if (outgoing != null)
             {
                 var diameter = !outgoing.Diameter.ApproximatelyEquals(0) ? outgoing.Diameter : DefaultDiameter;
-                var terminal = new Terminal(outgoing.Start.Position, outgoing.Direction(), 0.03, diameter, DefaultFittingMaterial);
+                var shape = GetShape(outgoing, diameter);
+                var terminal = new Terminal(outgoing.Start.Position, outgoing.Direction(), 0.03, shape.width, shape.height, shape.shapeType, DefaultFittingMaterial);
                 terminal.Port.Dimensions = new PortDimensions(0, 0, 0);
                 return terminal;
             }
             else if (incoming != null)
             {
                 var diameter = !incoming.Diameter.ApproximatelyEquals(0) ? incoming.Diameter : DefaultDiameter;
-                var terminal = new Terminal(incoming.End.Position, incoming.Direction().Negate(), 0.03, diameter, DefaultFittingMaterial);
+                var shape = GetShape(incoming, diameter);
+                var terminal = new Terminal(incoming.End.Position, incoming.Direction().Negate(), 0.03, shape.width, shape.height, shape.shapeType, DefaultFittingMaterial);
                 terminal.Port.Dimensions = new PortDimensions(0, 0, 0);
                 return terminal;
             }
@@ -541,9 +550,29 @@ namespace Elements.Fittings
         /// <returns></returns>
         public virtual Fitting ChangeDirection(Connection incoming, Connection outgoing)
         {
-            var larger = incoming.Diameter > outgoing.Diameter ? incoming.Diameter : outgoing.Diameter;
-            var diameter = !larger.ApproximatelyEquals(0) ? larger : DefaultDiameter;
-            return CreateElbow(diameter, incoming.End.Position, incoming.Direction().Negate(), outgoing.Direction());
+            var largerConnection = incoming.Diameter >= outgoing.Diameter ? incoming : outgoing;
+            var diameter = !largerConnection.Diameter.ApproximatelyEquals(0) ? largerConnection.Diameter : DefaultDiameter;
+            if (largerConnection.ShapeType == ShapeType.Circle)
+            {
+                return CreateElbow(diameter, incoming.End.Position, incoming.Direction().Negate(), outgoing.Direction());
+            }
+
+            var shape = GetShape(largerConnection, diameter);
+            return CreateElbow(shape.width, shape.height, shape.shapeType, incoming.End.Position, incoming.Direction().Negate(), outgoing.Direction());
+        }
+
+        public virtual Elbow CreateElbow(double width, double height, ShapeType shapeType, Vector3 position, Vector3 startDirection, Vector3 endDirection)
+        {
+            var diameter = shapeType == ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height);
+            var elbow = CreateElbow(diameter, position, startDirection, endDirection);
+            if (elbow != null)
+            {
+                elbow.Start.Width = elbow.End.Width = width;
+                elbow.Start.Height = elbow.End.Height = height;
+                elbow.Start.ShapeType = elbow.End.ShapeType = shapeType;
+                elbow.Diameter = diameter;
+            }
+            return elbow;
         }
 
         public virtual Elbow CreateElbow(double diameter, Vector3 position, Vector3 startDirection, Vector3 endDirection)
@@ -608,6 +637,15 @@ namespace Elements.Fittings
                                       length,
                                       DefaultFittingMaterial);
 
+            var startShape = GetShape(incoming, incoming.Diameter);
+            var endShape = GetShape(outgoing, outgoing.Diameter);
+            reducer.Start.Width = startShape.width;
+            reducer.Start.Height = startShape.height;
+            reducer.Start.ShapeType = startShape.shapeType;
+            reducer.End.Width = endShape.width;
+            reducer.End.Height = endShape.height;
+            reducer.End.ShapeType = endShape.shapeType;
+
             if (reducer.Start.Diameter < reducer.End.Diameter)
             {
                 (extensionStart, extensionEnd) = (extensionEnd, extensionStart);
@@ -621,6 +659,22 @@ namespace Elements.Fittings
         private double NonZeroDiameter(Connection connection)
         {
             return connection.Diameter.ApproximatelyEquals(0) ? DefaultDiameter : connection.Diameter;
+        }
+
+        private (double width, double height, ShapeType shapeType) GetShape(Connection connection, double fallbackDiameter)
+        {
+            var width = connection.ShapeType == ShapeType.Circle ? fallbackDiameter : (connection.Width > 0 ? connection.Width : fallbackDiameter);
+            var height = connection.ShapeType == ShapeType.Circle ? fallbackDiameter : (connection.Height > 0 ? connection.Height : fallbackDiameter);
+            return (width, height, connection.ShapeType);
+        }
+
+        private void ApplyShape(Port port, Connection connection, double fallbackDiameter)
+        {
+            var shape = GetShape(connection, fallbackDiameter);
+            port.Width = shape.width;
+            port.Height = shape.height;
+            port.ShapeType = shape.shapeType;
+            port.Diameter = shape.shapeType == ShapeType.Circle ? Math.Max(shape.width, shape.height) : Math.Sqrt(shape.width * shape.height);
         }
 
         private double RoundAngle(double angle)

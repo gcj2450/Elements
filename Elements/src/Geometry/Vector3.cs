@@ -1164,5 +1164,180 @@ namespace Elements.Geometry
 
             return (x, y);
         }
+
+        //==========================
+        public static bool AlmostEqual(
+            Vector3 a,
+            Vector3 b,
+            double tolerance)
+        {
+            return (a-b).Length() <= tolerance;
+        }
+
+        public static Vector3 NormalizeSafe(Vector3 v)
+        {
+            double len = v.Length();
+
+            if (len < 1e-12)
+                return Vector3.Origin;
+
+            return v / (float)len;
+        }
+
+        public static double AngleDegrees(
+            Vector3 a,
+            Vector3 b)
+        {
+            a = NormalizeSafe(a);
+            b = NormalizeSafe(b);
+
+            if (a == Vector3.Origin || b == Vector3.Origin)
+                return 0;
+
+            double d = Vector3.Clamp(
+                Vector3.Dot(a, b),
+                -1.0f,
+                1.0f);
+
+            return Math.Acos(d) * 180.0 / Math.PI;
+        }
+
+        public static bool IsCollinear(
+            Vector3 a,
+            Vector3 b,
+            double angleTolerance)
+        {
+            a = NormalizeSafe(a);
+            b = NormalizeSafe(b);
+
+            double angle = AngleDegrees(a, b);
+
+            return
+                angle <= angleTolerance ||
+                Math.Abs(angle - 180.0) <= angleTolerance;
+        }
+
+        public static double SegmentLength(
+            Vector3 a,
+            Vector3 b)
+        {
+            return Vector3.Distance(a, b);
+        }
+
+
+        public static double Dot(Vector3 a, Vector3 b)
+        {
+            return Vector3.Dot(a, b);
+        }
+        public static double Distance(Vector3 a, Vector3 b)
+        {
+            return Vector3.Distance(a, b);
+        }
+
+        /*
+         * Calculates closest points between two 3D segments.
+         *
+         * If the closest distance is <= tolerance,
+         * the two segments are treated as intersecting.
+         */
+        public static bool TrySegmentIntersection(
+            Vector3 p1,
+            Vector3 p2,
+            Vector3 q1,
+            Vector3 q2,
+            double tolerance,
+            out Vector3 intersection,
+            out double t1,
+            out double t2)
+        {
+            intersection = Vector3.Origin;
+            t1 = 0;
+            t2 = 0;
+
+            Vector3 u = p2 - p1;
+            Vector3 v = q2 - q1;
+            Vector3 w = p1 - q1;
+
+            double a = Vector3.Dot(u, u);
+            double b = Vector3.Dot(u, v);
+            double c = Vector3.Dot(v, v);
+            double d = Vector3.Dot(u, w);
+            double e = Vector3.Dot(v, w);
+
+            const double EPS = 1e-12;
+
+            if (a < EPS && c < EPS)
+            {
+                if (Distance(p1, q1) <= tolerance)
+                {
+                    intersection = (p1 + q1) * 0.5f;
+                    return true;
+                }
+
+                return false;
+            }
+
+            if (a < EPS)
+            {
+                t1 = 0;
+
+                t2 = c < EPS
+                    ? 0
+                    : Vector3.Clamp(e / c, 0.0, 1.0);
+            }
+            else if (c < EPS)
+            {
+                t2 = 0;
+                t1 = Vector3.Clamp(-d / a, 0.0, 1.0);
+            }
+            else
+            {
+                double denom = a * c - b * b;
+
+                if (Math.Abs(denom) > EPS)
+                {
+                    t1 = Vector3.Clamp(
+                        (b * e - c * d) / denom,
+                        0.0,
+                        1.0);
+
+                    t2 = Vector3.Clamp(
+                        (a * e - b * d) / denom,
+                        0.0,
+                        1.0);
+                }
+                else
+                {
+                    t1 = 0;
+                    t2 = Vector3.Clamp(e / c, 0.0, 1.0);
+                }
+            }
+
+            Vector3 cp1 = p1 + u * (float)t1;
+            Vector3 cp2 = q1 + v * (float)t2;
+
+            double distance = Distance(cp1, cp2);
+
+            if (distance > tolerance)
+                return false;
+
+            intersection = (cp1 + cp2) * 0.5f;
+
+            return true;
+        }
+
+        public static double Clamp(double value, double min, double max)
+        {
+            // 建议对 min 和 max 的顺序进行校验，避免意外结果
+            if (min > max)
+            {
+                throw new ArgumentException("The minimum value must be less than or equal to the maximum value.");
+            }
+
+            if (value < min) return min;
+            if (value > max) return max;
+            return value;
+        }
     }
+
 }

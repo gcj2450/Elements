@@ -18,9 +18,16 @@ namespace Elements.Fittings
         /// <inheritdoc/>
         public override Fitting ChangeDirection(Connection incoming, Connection outgoing)
         {
-            var larger = Math.Max(incoming.Diameter, outgoing.Diameter);
-            var diameter = !larger.ApproximatelyEquals(0) ? larger : DefaultDiameter;
-            return CreateElbow(diameter, incoming.End.Position, incoming.Direction().Negate(), outgoing.Direction());
+            var larger = incoming.Diameter >= outgoing.Diameter ? incoming : outgoing;
+            var diameter = !larger.Diameter.ApproximatelyEquals(0) ? larger.Diameter : DefaultDiameter;
+            if (larger.ShapeType == ShapeType.Circle)
+            {
+                return CreateElbow(diameter, incoming.End.Position, incoming.Direction().Negate(), outgoing.Direction());
+            }
+
+            var width = larger.Width > 0 ? larger.Width : diameter;
+            var height = larger.Height > 0 ? larger.Height : diameter;
+            return CreateElbow(width, height, larger.ShapeType, incoming.End.Position, incoming.Direction().Negate(), outgoing.Direction());
         }
 
         public override Elbow CreateElbow(double diameter, Vector3 position, Vector3 startDirection, Vector3 endDirection)

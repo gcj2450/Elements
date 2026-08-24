@@ -12,6 +12,11 @@ namespace Elements.Fittings
         private bool applyBranchTransform = false;
 
         public Reducer(Vector3 position, Vector3 towardsStartDirection, double diameterEnd, double diameterStart, double length, Material material) :
+            this(position, towardsStartDirection, diameterEnd, diameterEnd, diameterStart, diameterStart, ShapeType.Circle, length, material)
+        {
+        }
+
+        public Reducer(Vector3 position, Vector3 towardsStartDirection, double widthEnd, double heightEnd, double widthStart, double heightStart, ShapeType shapeType, double length, Material material) :
                                                                         base(false, FittingLocator.Empty(), new Transform(position),
                                                                             material == null ? FittingTreeRouting.DefaultFittingMaterial : material,
                                                                             new Representation(new List<SolidOperation>()),
@@ -20,8 +25,8 @@ namespace Elements.Fittings
                                                                             "")
         {
             applyBranchTransform = true;
-            this.Start = new Port(position + towardsStartDirection.Unitized() * length / 2, towardsStartDirection, diameterStart);
-            this.End = new Port(position - towardsStartDirection.Unitized() * length / 2, towardsStartDirection.Negate(), diameterEnd);
+            this.Start = new Port(position + towardsStartDirection.Unitized() * length / 2, towardsStartDirection, widthStart, heightStart, shapeType);
+            this.End = new Port(position - towardsStartDirection.Unitized() * length / 2, towardsStartDirection.Negate(), widthEnd, heightEnd, shapeType);
         }
 
         public Transform BranchSideTransform { get; protected set; } = new Transform();
@@ -41,7 +46,25 @@ namespace Elements.Fittings
             var orientation = path.Direction();
             // var fittingMaterial = new Material("green", new Color(0, 1, 0, 0.5);
             var fittingMaterial = FittingTreeRouting.DefaultFittingMaterial;
-            return new Reducer(position, reducerAtEnd ? orientation.Negate() : orientation, reducerAtEnd ? pipe.Diameter : newDiameter, reducerAtEnd ? newDiameter : pipe.Diameter, reducerLength, fittingMaterial);
+            if (pipe.ShapeType == ShapeType.Circle)
+            {
+                return new Reducer(position, reducerAtEnd ? orientation.Negate() : orientation, reducerAtEnd ? pipe.Diameter : newDiameter, reducerAtEnd ? newDiameter : pipe.Diameter, reducerLength, fittingMaterial);
+            }
+
+            var pipeWidth = pipe.Width > 0 ? pipe.Width : pipe.Diameter;
+            var pipeHeight = pipe.Height > 0 ? pipe.Height : pipe.Diameter;
+            var scale = Math.Sqrt(Math.Max(newDiameter, 0.000001) / Math.Max(pipe.Diameter, 0.000001));
+            var newWidth = pipeWidth * scale;
+            var newHeight = pipeHeight * scale;
+            return new Reducer(position,
+                               reducerAtEnd ? orientation.Negate() : orientation,
+                               reducerAtEnd ? pipeWidth : newWidth,
+                               reducerAtEnd ? pipeHeight : newHeight,
+                               reducerAtEnd ? newWidth : pipeWidth,
+                               reducerAtEnd ? newHeight : pipeHeight,
+                               pipe.ShapeType,
+                               reducerLength,
+                               fittingMaterial);
         }
 
         public override void UpdateRepresentations()
@@ -54,13 +77,13 @@ namespace Elements.Fittings
             var startNodeTransform = Transform.Concatenated(this.BranchSideTransform);
             var endNodeTransform = Transform;
 
-            var startProfile = new Circle(Vector3.Origin, this.Start.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var startProfile = PipeProfile.Create(this.Start);
             var startLinePoint1 = Start.Position - Transform.Origin;
             var startLinePoint2 = startNodeTransform.Origin - Transform.Origin;
             var line = new Line(startLinePoint1, startLinePoint2);
             var sweep1 = new Sweep(startProfile, line, 0, 0, 0, false);
 
-            var endProfile = new Circle(Vector3.Origin, this.End.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var endProfile = PipeProfile.Create(this.End);
             var endLinePoint1 = End.Position - Transform.Origin;
             var endLinePoint2 = endNodeTransform.Origin - Transform.Origin;
             var otherLine = new Line(endLinePoint2, endLinePoint1);

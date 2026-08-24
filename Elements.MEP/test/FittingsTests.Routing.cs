@@ -139,7 +139,7 @@ namespace Elements.MEP.Tests
             };
         }
 
-        private class SizeAlwaysFromLeafOrTrunk : FittingTreeRouting
+        public class SizeAlwaysFromLeafOrTrunk : FittingTreeRouting
         {
             public SizeAlwaysFromLeafOrTrunk(Tree tree, bool eccentric = false) : base(tree)
             {

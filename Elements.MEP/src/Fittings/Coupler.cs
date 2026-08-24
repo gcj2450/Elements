@@ -9,6 +9,11 @@ namespace Elements.Fittings
     public partial class Coupler
     {
         public Coupler(string type, Vector3 position, Vector3 direction, double length, double diameter, Material material = null) :
+            this(type, position, direction, length, diameter, diameter, ShapeType.Circle, material)
+        {
+        }
+
+        public Coupler(string type, Vector3 position, Vector3 direction, double length, double width, double height, ShapeType shapeType, Material material = null) :
                 base(false, FittingLocator.Empty(), new Transform(position),
                     material == null ? FittingTreeRouting.DefaultFittingMaterial : material,
                     new Representation(new List<SolidOperation>()),
@@ -16,10 +21,13 @@ namespace Elements.Fittings
                     Guid.NewGuid(),
                     "")
         {
-            this.Diameter = diameter;
+            this.Diameter = shapeType == ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height);
+            this.Width = width;
+            this.Height = height;
+            this.ShapeType = shapeType;
             this.CouplerType = type;
-            this.Start = new Port(position, direction.Negate(), diameter);
-            this.End = new Port(position + direction.Unitized() * length, direction, diameter);
+            this.Start = new Port(position, direction.Negate(), width, height, shapeType);
+            this.End = new Port(position + direction.Unitized() * length, direction, width, height, shapeType);
         }
 
         public override Port[] GetPorts()
@@ -75,7 +83,7 @@ namespace Elements.Fittings
                 start += this.Start.Direction * 1E-3;
             }
             var line = new Line(End.Position - Transform.Origin, start);
-            var profile = new Circle(Vector3.Origin, Start.Diameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var profile = PipeProfile.Create(Start);
             var main = new Sweep(profile, line, 0, 0, 0, false);
 
             var arrows = this.Start.GetArrow(this.Transform.Origin).Concat(End.GetArrow(Transform.Origin));

@@ -32,6 +32,9 @@ namespace Elements.Fittings
             this.Position = @position;
             this.Direction = @direction;
             this.Diameter = @diameter;
+            this.Width = @diameter;
+            this.Height = @diameter;
+            this.ShapeType = ShapeType.Circle;
             this.Flow = @flow;
             this.Tags = @tags;
             this.ConnectionType = @connectionType;
@@ -54,6 +57,15 @@ namespace Elements.Fittings
         /// <summary>The diameter of the connector.</summary>
         [JsonProperty("Diameter", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Diameter { get; set; }
+
+        [JsonProperty("Width", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Width { get; set; }
+
+        [JsonProperty("Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Height { get; set; }
+
+        [JsonProperty("ShapeType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ShapeType ShapeType { get; set; } = ShapeType.Circle;
     
         /// <summary>The flow properties of the connector.</summary>
         [JsonProperty("Flow", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]

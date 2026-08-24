@@ -33,6 +33,9 @@ namespace Elements.Flow
             this.Start = @start;
             this.End = @end;
             this.Diameter = @diameter;
+            this.Width = @diameter;
+            this.Height = @diameter;
+            this.ShapeType = Elements.Fittings.ShapeType.Circle;
             this.Flow = @flow;
             }
         
@@ -50,6 +53,15 @@ namespace Elements.Flow
     
         [JsonProperty("Diameter", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Diameter { get; set; }
+
+        [JsonProperty("Width", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Width { get; set; }
+
+        [JsonProperty("Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Height { get; set; }
+
+        [JsonProperty("ShapeType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Elements.Fittings.ShapeType ShapeType { get; set; } = Elements.Fittings.ShapeType.Circle;
     
         [JsonProperty("Flow", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Flow { get; set; }

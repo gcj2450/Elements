@@ -10,6 +10,11 @@ namespace Elements.Fittings
     public partial class Terminal
     {
         public Terminal(Vector3 fittingPosition, Vector3 portDirection, double endLength, double diameter, Material material) :
+            this(fittingPosition, portDirection, endLength, diameter, diameter, ShapeType.Circle, material)
+        {
+        }
+
+        public Terminal(Vector3 fittingPosition, Vector3 portDirection, double endLength, double width, double height, ShapeType shapeType, Material material) :
                                                                         base(false, FittingLocator.Empty(), new Transform(fittingPosition),
                                                                             material == null ? FittingTreeRouting.DefaultFittingMaterial : material,
                                                                             new Representation(new List<SolidOperation>()),
@@ -17,10 +22,15 @@ namespace Elements.Fittings
                                                                             Guid.NewGuid(),
                                                                             "")
         {
-            this.Port = new Port(fittingPosition + portDirection.Unitized() * endLength, portDirection.Unitized(), diameter);
+            this.Port = new Port(fittingPosition + portDirection.Unitized() * endLength, portDirection.Unitized(), width, height, shapeType);
         }
 
         public Terminal(Vector3 fittingPosition, Vector3 portDirection, Vector3 connectorPoint, double diameter, Material material) :
+            this(fittingPosition, portDirection, connectorPoint, diameter, diameter, ShapeType.Circle, material)
+        {
+        }
+
+        public Terminal(Vector3 fittingPosition, Vector3 portDirection, Vector3 connectorPoint, double width, double height, ShapeType shapeType, Material material) :
             base(false, FittingLocator.Empty(), new Transform(fittingPosition),
                 material == null ? FittingTreeRouting.DefaultFittingMaterial : material,
                 new Representation(new List<SolidOperation>()),
@@ -28,12 +38,12 @@ namespace Elements.Fittings
                 Guid.NewGuid(),
                 "")
         {
-            this.Port = new Port(connectorPoint, portDirection.Unitized(), diameter);
+            this.Port = new Port(connectorPoint, portDirection.Unitized(), width, height, shapeType);
         }
 
         public override void UpdateRepresentations()
         {
-            var profile = new Circle((this.Port.Diameter > 0 ? this.Port.Diameter : 0.001) / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+            var profile = PipeProfile.Create(this.Port);
             var arrows = this.Port.GetArrow(this.Transform.Origin);
             var lineEnd = this.Port.Position - this.Transform.Origin;
             Representation = new Representation(new List<SolidOperation>(arrows));

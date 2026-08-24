@@ -571,6 +571,9 @@ namespace Elements.Flow
             var startConnection = this.Connect(connection.Start, newNode, isLoop: connection.IsLoop);
             var endConnection = this.Connect(newNode, connection.End, isLoop: connection.IsLoop);
             startConnection.Diameter = endConnection.Diameter = connection.Diameter;
+            startConnection.Width = endConnection.Width = connection.Width;
+            startConnection.Height = endConnection.Height = connection.Height;
+            startConnection.ShapeType = endConnection.ShapeType = connection.ShapeType;
             newConnections = new[] { startConnection, endConnection };
 
             return newNode;
@@ -736,8 +739,10 @@ namespace Elements.Flow
                 foreach (var c in Connections)
                 {
                     // slightly smaller diameter so it will be rendered "underneath" sections or pipes downstream.
-                    var circle = new Circle(c.Diameter > 0 ? (c.Diameter - Connection.DIAMETER_INSET * 4) / 2 : Connection.DEFAULT_CONNECTION_DIAMETER - Connection.DIAMETER_INSET).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
-                    var s = new Sweep(circle, c.Path(), 0, 0, 0, false);
+                    var width = c.ShapeType == Elements.Fittings.ShapeType.Circle ? (c.Diameter > 0 ? c.Diameter - Connection.DIAMETER_INSET * 4 : Connection.DEFAULT_CONNECTION_DIAMETER) : (c.Width > 0 ? Math.Max(c.Width - Connection.DIAMETER_INSET * 4, 0.001) : Connection.DEFAULT_CONNECTION_DIAMETER);
+                    var height = c.ShapeType == Elements.Fittings.ShapeType.Circle ? width : (c.Height > 0 ? Math.Max(c.Height - Connection.DIAMETER_INSET * 4, 0.001) : width);
+                    var profile = Elements.Fittings.PipeProfile.Create(c.Diameter, width, height, c.ShapeType);
+                    var s = new Sweep(profile, c.Path(), 0, 0, 0, false);
                     this.Representation.SolidOperations.Add(s);
                 }
             }
@@ -884,7 +889,7 @@ namespace Elements.Flow
                 inlets.Add(newInlet);
             });
 
-            newConnectionLookup = Connections.ToDictionary(c => c, c => new Connection(nodeLookup[c.Start], nodeLookup[c.End], Guid.NewGuid(), c.Name) { Diameter = c.Diameter, AdditionalProperties = new Dictionary<string, object>(c.AdditionalProperties), IsLoop = c.IsLoop });
+            newConnectionLookup = Connections.ToDictionary(c => c, c => new Connection(nodeLookup[c.Start], nodeLookup[c.End], Guid.NewGuid(), c.Name) { Diameter = c.Diameter, Width = c.Width, Height = c.Height, ShapeType = c.ShapeType, AdditionalProperties = new Dictionary<string, object>(c.AdditionalProperties), IsLoop = c.IsLoop });
 
             var connections = newConnectionLookup.Values.ToList();
 

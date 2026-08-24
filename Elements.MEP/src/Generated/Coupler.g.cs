@@ -33,6 +33,9 @@ namespace Elements.Fittings
             this.Start = @start;
             this.End = @end;
             this.Diameter = @diameter;
+            this.Width = @diameter;
+            this.Height = @diameter;
+            this.ShapeType = ShapeType.Circle;
             this.PressureCalculations = @pressureCalculations;
             this.CouplerType = @couplerType;
             }
@@ -53,6 +56,15 @@ namespace Elements.Fittings
     
         [JsonProperty("Diameter", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Diameter { get; set; }
+
+        [JsonProperty("Width", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Width { get; set; }
+
+        [JsonProperty("Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Height { get; set; }
+
+        [JsonProperty("ShapeType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ShapeType ShapeType { get; set; } = ShapeType.Circle;
     
         [JsonProperty("Pressure Calculations", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public PressureCalculationCoupler PressureCalculations { get; set; }
