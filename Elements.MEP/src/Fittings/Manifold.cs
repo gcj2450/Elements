@@ -12,6 +12,23 @@ namespace Elements.Fittings
         private double _size;
 
         public Manifold(Vector3 position, Vector3 trunkDirection, double trunkDiameter, List<(Vector3 direction, double diameter)> branches, Material material = null) :
+            this(position,
+                 trunkDirection,
+                 trunkDiameter,
+                 trunkDiameter,
+                 ShapeType.Circle,
+                 branches.Select(branch => (branch.direction, branch.diameter, branch.diameter, ShapeType.Circle)).ToList(),
+                 material)
+        {
+        }
+
+        public Manifold(Vector3 position,
+                        Vector3 trunkDirection,
+                        double trunkWidth,
+                        double trunkHeight,
+                        ShapeType trunkShapeType,
+                        List<(Vector3 direction, double width, double height, ShapeType shapeType)> branches,
+                        Material material = null) :
                                                                                          base(false,
                                                                                               FittingLocator.Empty(),
                                                                                               new Transform(),
@@ -22,13 +39,21 @@ namespace Elements.Fittings
                                                                                               "")
         {
             this.Transform = new Transform(position);
-            _size = branches.Max(d => d.diameter) * 1.5;
+            _size = Math.Max(Math.Max(trunkWidth, trunkHeight), branches.Max(branch => Math.Max(branch.width, branch.height))) * 1.5;
             var distance = _size / 2;
-            this.Trunk = new Port(position + trunkDirection.Unitized() * distance, trunkDirection.Unitized(), trunkDiameter);
+            this.Trunk = new Port(position + trunkDirection.Unitized() * distance,
+                                  trunkDirection.Unitized(),
+                                  trunkWidth,
+                                  trunkHeight,
+                                  trunkShapeType);
             this.Branches = new List<Port>();
-            foreach (var (direction, diameter) in branches)
+            foreach (var (direction, width, height, shapeType) in branches)
             {
-                Branches.Add(new Port(position + direction.Unitized() * distance, direction.Unitized(), diameter));
+                Branches.Add(new Port(position + direction.Unitized() * distance,
+                                      direction.Unitized(),
+                                      width,
+                                      height,
+                                      shapeType));
             }
         }
 

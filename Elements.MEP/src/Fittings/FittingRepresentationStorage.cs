@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Elements.Geometry;
 using Elements.Geometry.Solids;
 
@@ -13,7 +14,8 @@ namespace Elements.Fittings
 
         public static void SetFittingRepresentation(Fitting fitting, Func<IList<SolidOperation>> makeSolids)
         {
-            var hash = fitting.GetRepresentationHash();
+            var portShapes = fitting.GetPorts().Select(port => $"{port.ShapeType}-{port.Width}-{port.Height}");
+            var hash = $"{fitting.GetRepresentationHash()}-{String.Join("-", portShapes)}";
             if (!_fittings.ContainsKey(hash))
             {
                 var solids = makeSolids();

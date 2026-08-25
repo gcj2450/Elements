@@ -28,6 +28,30 @@ namespace Elements.Fittings
             this.InsertionDepth = insertionDepth;
         }
 
+        public ExpansionSocket(Vector3 position,
+                               Vector3 direction,
+                               double length,
+                               double width,
+                               double height,
+                               ShapeType shapeType,
+                               double insertionDepth,
+                               Material material = null) :
+            base("Expansion Socket",
+                 position + direction * insertionDepth,
+                 direction,
+                 length - insertionDepth,
+                 width,
+                 height,
+                 shapeType,
+                 material)
+        {
+            if (length < insertionDepth)
+            {
+                throw new Exception("Socket length is smaller than insertion depth");
+            }
+            this.InsertionDepth = insertionDepth;
+        }
+
         [Newtonsoft.Json.JsonConstructor]
         public ExpansionSocket(double @insertionDepth,
                                Port @start,

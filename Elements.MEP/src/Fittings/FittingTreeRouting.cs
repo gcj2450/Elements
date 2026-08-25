@@ -427,10 +427,7 @@ namespace Elements.Fittings
                             return null;
                         }
                         // only support cross fittings where BranchA goes straight through. For other cases use Manifold
-                        return new Manifold(outgoing.Start.Position,
-                                            outgoing.Direction(),
-                                            NonZeroDiameter(outgoing),
-                                            incoming.Select(c => (c.Direction().Negate(), NonZeroDiameter(c))).ToList());
+                        return CreateManifold(incoming, outgoing);
                     }
                     var angles = incoming.Select(c => c.Direction().AngleTo(outgoing.Direction()));
                     var others = incoming.Where(c => !c.Direction().AngleTo(outgoing.Direction()).ApproximatelyEquals(0, 1));
@@ -497,11 +494,26 @@ namespace Elements.Fittings
                     {
                         return null;
                     }
-                    return new Manifold(outgoing.Start.Position,
-                                        outgoing.Direction(),
-                                        NonZeroDiameter(outgoing),
-                                        incoming.Select(c => (c.Direction().Negate(), NonZeroDiameter(c))).ToList());
+                    return CreateManifold(incoming, outgoing);
             }
+        }
+
+        private Manifold CreateManifold(IEnumerable<Connection> incoming, Connection outgoing)
+        {
+            var trunkShape = GetShape(outgoing, NonZeroDiameter(outgoing));
+            var branchShapes = incoming.Select(connection =>
+            {
+                var shape = GetShape(connection, NonZeroDiameter(connection));
+                return (connection.Direction().Negate(), shape.width, shape.height, shape.shapeType);
+            }).ToList();
+
+            return new Manifold(outgoing.Start.Position,
+                                outgoing.Direction(),
+                                trunkShape.width,
+                                trunkShape.height,
+                                trunkShape.shapeType,
+                                branchShapes,
+                                DefaultFittingMaterial);
         }
 
         /// <summary>

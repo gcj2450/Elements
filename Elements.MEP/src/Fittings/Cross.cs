@@ -19,6 +19,15 @@ namespace Elements.Fittings
         public double Diameter_B;
         public double Diameter_C;
         public double Diameter;
+        public double Width_A;
+        public double Height_A;
+        public double Width_B;
+        public double Height_B;
+        public double Width_C;
+        public double Height_C;
+        public double Width;
+        public double Height;
+        public ShapeType ShapeType;
         public double[] AllowedBranchAngles;
         public double AngleTolerance = 0.1;
         public double PortsDistanceTolerance = 0.001;
@@ -33,6 +42,12 @@ namespace Elements.Fittings
             Diameter_A = 0.1;
             Diameter_B = 0.05;
             Diameter_C = 0.05;
+
+            Width = Height = Diameter;
+            Width_A = Height_A = Diameter_A;
+            Width_B = Height_B = Diameter_B;
+            Width_C = Height_C = Diameter_C;
+            ShapeType = ShapeType.Circle;
 
             AllowedBranchAngles = new[] { 90d };
         }
@@ -58,10 +73,30 @@ namespace Elements.Fittings
         {
             this.Transform = new Transform(position);
 
-            this.Trunk = new Port(position + trunkDirection.Unitized() * crossSettings.Distance_Trunk, trunkDirection.Unitized(), crossSettings.Diameter);
-            this.BranchA = new Port(position + directionA.Unitized() * crossSettings.Distance_A, directionA.Unitized(), crossSettings.Diameter_A);
-            this.BranchB = new Port(position + directionB.Unitized() * crossSettings.Distance_B, directionB.Unitized(), crossSettings.Diameter_B);
-            this.BranchC = new Port(position + directionC.Unitized() * crossSettings.Distance_C, directionC.Unitized(), crossSettings.Diameter_C);
+            this.Trunk = CreatePort(position + trunkDirection.Unitized() * crossSettings.Distance_Trunk,
+                                    trunkDirection.Unitized(),
+                                    crossSettings.Diameter,
+                                    crossSettings.Width,
+                                    crossSettings.Height,
+                                    crossSettings.ShapeType);
+            this.BranchA = CreatePort(position + directionA.Unitized() * crossSettings.Distance_A,
+                                      directionA.Unitized(),
+                                      crossSettings.Diameter_A,
+                                      crossSettings.Width_A,
+                                      crossSettings.Height_A,
+                                      crossSettings.ShapeType);
+            this.BranchB = CreatePort(position + directionB.Unitized() * crossSettings.Distance_B,
+                                      directionB.Unitized(),
+                                      crossSettings.Diameter_B,
+                                      crossSettings.Width_B,
+                                      crossSettings.Height_B,
+                                      crossSettings.ShapeType);
+            this.BranchC = CreatePort(position + directionC.Unitized() * crossSettings.Distance_C,
+                                      directionC.Unitized(),
+                                      crossSettings.Diameter_C,
+                                      crossSettings.Width_C,
+                                      crossSettings.Height_C,
+                                      crossSettings.ShapeType);
 
             AngleTolerance = crossSettings.AngleTolerance;
             PositionTolerance = crossSettings.PortsDistanceTolerance;
@@ -83,6 +118,25 @@ namespace Elements.Fittings
             {
                 throw new ArgumentOutOfRangeException($"That branch directions provided make an angle of {branchAngleC} which is not allowed for this cross settings");
             }
+        }
+
+        private static Port CreatePort(Vector3 position,
+                                       Vector3 direction,
+                                       double diameter,
+                                       double width,
+                                       double height,
+                                       ShapeType shapeType)
+        {
+            if (shapeType == ShapeType.Circle)
+            {
+                return new Port(position, direction, diameter);
+            }
+
+            return new Port(position,
+                            direction,
+                            width > 0 ? width : diameter,
+                            height > 0 ? height : diameter,
+                            shapeType);
         }
 
         public override Port[] GetPorts()

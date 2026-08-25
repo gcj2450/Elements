@@ -51,6 +51,66 @@ namespace Elements.MEP.Tests
         }
 
         [Fact]
+        public void MakeRectangularTee()
+        {
+            ComponentBase.UseRepresentationInstances = true;
+            Port.ShowArrows = true;
+            var settings = new WyeSettings
+            {
+                ShapeType = ShapeType.Rectangle,
+                Width = 0.4,
+                Height = 0.2,
+                MainWidth = 0.4,
+                MainHeight = 0.2,
+                BranchWidth = 0.2,
+                BranchHeight = 0.1,
+                AllowedBranchAngles = new[] { 180.0 }
+            };
+
+            // The main and side ports are collinear, while the trunk is perpendicular.
+            var tee = new Wye(Vector3.Origin,
+                              Vector3.ZAxis,
+                              Vector3.XAxis,
+                              Vector3.XAxis.Negate(),
+                              settings,
+                              FittingTreeRouting.DefaultFittingMaterial);
+            tee.UpdateRepresentations();
+
+            Assert.Equal(ShapeType.Rectangle, tee.Trunk.ShapeType);
+            Assert.Equal(ShapeType.Rectangle, tee.MainBranch.ShapeType);
+            Assert.Equal(ShapeType.Rectangle, tee.SideBranch.ShapeType);
+            Assert.Equal(settings.Width, tee.Trunk.Width);
+            Assert.Equal(settings.Height, tee.Trunk.Height);
+            Assert.Equal(settings.MainWidth, tee.MainBranch.Width);
+            Assert.Equal(settings.MainHeight, tee.MainBranch.Height);
+            Assert.Equal(settings.BranchWidth, tee.SideBranch.Width);
+            Assert.Equal(settings.BranchHeight, tee.SideBranch.Height);
+
+            var trunkPipe = new StraightSegment(0,
+                                                tee.Trunk,
+                                                new Port(tee.Trunk.Position + Vector3.ZAxis * 2,
+                                                         Vector3.ZAxis,
+                                                         tee.Trunk.Width,
+                                                         tee.Trunk.Height,
+                                                         tee.Trunk.ShapeType));
+            var mainPipe = new StraightSegment(0,
+                                               tee.MainBranch,
+                                               new Port(tee.MainBranch.Position + Vector3.XAxis * 2,
+                                                        Vector3.XAxis,
+                                                        tee.MainBranch.Width,
+                                                        tee.MainBranch.Height,
+                                                        tee.MainBranch.ShapeType));
+            var sidePipe = new StraightSegment(0,
+                                               new Port(tee.SideBranch.Position - Vector3.XAxis * 2,
+                                                        Vector3.XAxis.Negate(),
+                                                        tee.SideBranch.Width,
+                                                        tee.SideBranch.Height,
+                                                        tee.SideBranch.ShapeType),
+                                               tee.SideBranch);
+            SaveToGltf(nameof(MakeRectangularTee), new Element[] { trunkPipe, mainPipe, sidePipe, tee });
+        }
+
+        [Fact]
         public void MakeCross()
         {
             var cs = new CrossSettings();

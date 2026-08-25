@@ -21,8 +21,8 @@ namespace MainTest
             //PipeWithTwoReducers(false);
             //MakeElbow();
             //MakeCross();
-            //MakeWye();
-            FittingCatalogTreeWithCross();
+            MakeWye();
+            //FittingCatalogTreeWithCross();
         }
 
         public static void TestRouting()
@@ -221,24 +221,46 @@ namespace MainTest
         public static void MakeWye()
         {
             ComponentBase.UseRepresentationInstances = true;
-            var branchDirection = new Vector3(Math.Sqrt(2) / 2, 1, Math.Sqrt(2) / 2);
+            var branchDirection = new Vector3(0, 0, 1); ////(0,0,1)是竖直向上的三通,//(0,1,1)是斜向上的三通
             var mainDir = new Vector3(0, 1, 0);
             var connectionPoint = new Vector3(1, 0, 1);
             Port.ShowArrows = true;
+            var wyeSettings = new WyeSettings
+            {
+                ShapeType = ShapeType.Rectangle,
+                Width = 0.4,
+                Height = 0.2,
+                MainWidth = 0.4,
+                MainHeight = 0.2,
+                BranchWidth = 0.2,
+                BranchHeight = 0.1
+            };
 
             var wye = new Wye(connectionPoint,
                               mainDir,
                               branchDirection,
-                              new WyeSettings() { BranchDiameter = FittingTreeRouting.DefaultDiameter / 2 },
+                              wyeSettings,
                               FittingTreeRouting.DefaultFittingMaterial);
             var pipe1 = new StraightSegment(0,
                                         wye.MainBranch,
-                                        new Port(wye.MainBranch.Position + mainDir * 2, mainDir, wye.MainBranch.Diameter));
+                                        new Port(wye.MainBranch.Position + mainDir * 2,
+                                                 mainDir,
+                                                 wye.MainBranch.Width,
+                                                 wye.MainBranch.Height,
+                                                 wye.MainBranch.ShapeType));
             var pipe2 = new StraightSegment(0,
                                             wye.SideBranch,
-                                            new Port(wye.SideBranch.Position + branchDirection, branchDirection, wye.SideBranch.Diameter));
+                                            new Port(wye.SideBranch.Position + branchDirection,
+                                                     branchDirection,
+                                                     wye.SideBranch.Width,
+                                                     wye.SideBranch.Height,
+                                                     wye.SideBranch.ShapeType));
             var pipe3 = new StraightSegment(0,
-                                            new Port(wye.Trunk.Position + wye.Trunk.Direction * 2, branchDirection, wye.Trunk.Diameter),
+                                            new Port(wye.Trunk.Position + wye.Trunk.Direction * 2,
+                                                     wye.Trunk.Direction,
+                                                     wye.Trunk.Width,
+                                                     wye.Trunk.Height,
+                                                     wye.Trunk.ShapeType),
                                             wye.Trunk
                                             );
 
