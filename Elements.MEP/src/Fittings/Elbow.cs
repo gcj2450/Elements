@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Elements.Geometry;
@@ -9,7 +9,7 @@ namespace Elements.Fittings
     public partial class Elbow
     {
         /// <summary>
-        /// ���ݾɰ��Բ�ιܵ�
+        /// 兼容旧版的圆形管道
         /// </summary>
         /// <param name="position"></param>
         /// <param name="startDirection"></param>

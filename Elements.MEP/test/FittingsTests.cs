@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Elements;
 using Elements.Flow;
 using Elements.Geometry;
+using Elements.Geometry.Solids;
 using Elements.Fittings;
 using Elements.Serialization.glTF;
 using Xunit;
@@ -108,6 +109,37 @@ namespace Elements.MEP.Tests
                                                         tee.SideBranch.ShapeType),
                                                tee.SideBranch);
             SaveToGltf(nameof(MakeRectangularTee), new Element[] { trunkPipe, mainPipe, sidePipe, tee });
+        }
+
+        [Fact]
+        public void RectangularWyeKeepsBranchProfilesAligned()
+        {
+            ComponentBase.UseRepresentationInstances = true;
+            var settings = new WyeSettings
+            {
+                ShapeType = ShapeType.Rectangle,
+                Width = 0.4,
+                Height = 0.2,
+                MainWidth = 0.4,
+                MainHeight = 0.2,
+                BranchWidth = 0.2,
+                BranchHeight = 0.1
+            };
+            var wye = new Wye(Vector3.Origin,
+                              Vector3.YAxis,
+                              new Vector3(0, 1, 1).Unitized(),
+                              settings,
+                              FittingTreeRouting.DefaultFittingMaterial);
+
+            wye.UpdateRepresentations();
+            var representation = Assert.Single(wye.RepresentationInstances);
+            var solidRepresentation = Assert.IsType<SolidRepresentation>(representation.Representation);
+            var sweeps = solidRepresentation.SolidOperations.OfType<Sweep>().Take(3).ToArray();
+
+            Assert.Equal(3, sweeps.Length);
+            Assert.All(sweeps, sweep => Assert.True(double.IsFinite(sweep.ProfileRotation)));
+            Assert.Equal(sweeps[0].ProfileRotation, sweeps[2].ProfileRotation);
+            Assert.Contains(sweeps, sweep => Math.Abs(sweep.ProfileRotation) > 1.0);
         }
 
         [Fact]

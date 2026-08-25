@@ -221,13 +221,13 @@ namespace MainTest
         public static void MakeWye()
         {
             ComponentBase.UseRepresentationInstances = true;
-            var branchDirection = new Vector3(0, 0, 1); ////(0,0,1)是竖直向上的三通,//(0,1,1)是斜向上的三通
+            var branchDirection = new Vector3(0, 1, 1).Unitized();
             var mainDir = new Vector3(0, 1, 0);
             var connectionPoint = new Vector3(1, 0, 1);
             Port.ShowArrows = true;
             var wyeSettings = new WyeSettings
             {
-                ShapeType = ShapeType.Rectangle,
+                ShapeType = ShapeType.Oval,
                 Width = 0.4,
                 Height = 0.2,
                 MainWidth = 0.4,

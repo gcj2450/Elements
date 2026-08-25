@@ -37,11 +37,11 @@ for(var i=0; i<1; i++)
 
     // The bottom chord
     var bottomChord = new Line(start, end);
-    var bottomChordBeam = new Beam(bottomChord, p, m);
+    var bottomChordBeam = new Beam(bottomChord, p,null, m);
     model.AddElement(bottomChordBeam);
 
     var topChord = new Line(start + new Vector3(0,0,5), end + new Vector3(0,0,5));
-    var topChordBeam = new Beam(topChord, p, m);
+    var topChordBeam = new Beam(topChord, p, null,m);
     model.AddElement(topChordBeam);
 
     Vector3 last = default(Vector3);
@@ -50,13 +50,13 @@ for(var i=0; i<1; i++)
         var pt = bottomChord.PointAt(j);
         var top = pt + new Vector3(0,0,5);
         var panelLine = new Line(pt, top);
-        var panelBeam = new Beam(panelLine, p, m);
+        var panelBeam = new Beam(panelLine, p,null, m);
         model.AddElement(panelBeam);
 
         if(j > 0.0)
         {
             var braceLine = new Line(top, last);
-            var braceBeam = new Beam(braceLine, p, m);
+            var braceBeam = new Beam(braceLine, p,null, m);
             model.AddElement(braceBeam);
         }
         last = pt;

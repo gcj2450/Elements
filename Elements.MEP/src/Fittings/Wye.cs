@@ -9,92 +9,92 @@ using Newtonsoft.Json;
 namespace Elements.Fittings
 {
     /// <summary>
-    /// YĞÍÈıÍ¨£¨Wye£©¼¸ºÎ²ÎÊı¼°¹æÔòÅäÖÃÏî
+    /// Yå‹ä¸‰é€šï¼ˆWyeï¼‰å‡ ä½•å‚æ•°åŠè§„åˆ™é…ç½®é¡¹
     /// </summary>
     public class WyeSettings
     {
         /// <summary>
-        /// Ö±Í¨·ÖÖ§¶Ë¿Ú¾àÀëÖĞĞÄµÄÆ«ÒÆ¾àÀë
+        /// ç›´é€šåˆ†æ”¯ç«¯å£è·ç¦»ä¸­å¿ƒçš„åç§»è·ç¦»
         /// </summary>
         public double MainDistance;
 
         /// <summary>
-        /// ²àÏò·ÖÖ§¶Ë¿Ú¾àÀëÖĞĞÄµÄÆ«ÒÆ¾àÀë
+        /// ä¾§å‘åˆ†æ”¯ç«¯å£è·ç¦»ä¸­å¿ƒçš„åç§»è·ç¦»
         /// </summary>
         public double BranchDistance;
 
         /// <summary>
-        /// Ö÷¸É¶Ë¿Ú¾àÀëÖĞĞÄµÄÆ«ÒÆ¾àÀë
+        /// ä¸»å¹²ç«¯å£è·ç¦»ä¸­å¿ƒçš„åç§»è·ç¦»
         /// </summary>
         public double TrunkDistance;
 
         /// <summary>
-        /// Ö±Í¨·ÖÖ§µÄÔ²ĞÎÖ±¾¶
+        /// ç›´é€šåˆ†æ”¯çš„åœ†å½¢ç›´å¾„
         /// </summary>
         public double MainDiameter;
 
         /// <summary>
-        /// ²àÏò·ÖÖ§µÄÔ²ĞÎÖ±¾¶
+        /// ä¾§å‘åˆ†æ”¯çš„åœ†å½¢ç›´å¾„
         /// </summary>
         public double BranchDiameter;
 
         /// <summary>
-        /// Ö÷¸ÉµÄÔ²ĞÎÖ±¾¶
+        /// ä¸»å¹²çš„åœ†å½¢ç›´å¾„
         /// </summary>
         public double Diameter;
 
         /// <summary>
-        /// Ö±Í¨·ÖÖ§¶Ë¿Ú¿í¶È
+        /// ç›´é€šåˆ†æ”¯ç«¯å£å®½åº¦
         /// </summary>
         public double MainWidth;
 
         /// <summary>
-        /// Ö±Í¨·ÖÖ§¶Ë¿Ú¸ß¶È
+        /// ç›´é€šåˆ†æ”¯ç«¯å£é«˜åº¦
         /// </summary>
         public double MainHeight;
 
         /// <summary>
-        /// ²àÏò·ÖÖ§¶Ë¿Ú¿í¶È
+        /// ä¾§å‘åˆ†æ”¯ç«¯å£å®½åº¦
         /// </summary>
         public double BranchWidth;
 
         /// <summary>
-        /// ²àÏò·ÖÖ§¶Ë¿Ú¸ß¶È
+        /// ä¾§å‘åˆ†æ”¯ç«¯å£é«˜åº¦
         /// </summary>
         public double BranchHeight;
 
         /// <summary>
-        /// Ö÷¸É¶Ë¿Ú¿í¶È
+        /// ä¸»å¹²ç«¯å£å®½åº¦
         /// </summary>
         public double Width;
 
         /// <summary>
-        /// Ö÷¸É¶Ë¿Ú¸ß¶È
+        /// ä¸»å¹²ç«¯å£é«˜åº¦
         /// </summary>
         public double Height;
 
         /// <summary>
-        /// ¶Ë¿Ú½ØÃæĞÎ×´ÀàĞÍ£¨Ô²ĞÎ¡¢¾ØĞÎµÈ£©
+        /// ç«¯å£æˆªé¢å½¢çŠ¶ç±»å‹ï¼ˆåœ†å½¢ã€çŸ©å½¢ç­‰ï¼‰
         /// </summary>
         public ShapeType ShapeType;
 
         /// <summary>
-        /// ²àÏò·ÖÖ§½Ç¶ÈĞ£ÑéÈİ²î
+        /// ä¾§å‘åˆ†æ”¯è§’åº¦æ ¡éªŒå®¹å·®
         /// </summary>
         public double AngleTolerance;
 
         /// <summary>
-        /// ¶Ë¿Ú¶¨Î»/Á¬½ÓÆ¥Åä¾àÀëÈİ²î
+        /// ç«¯å£å®šä½/è¿æ¥åŒ¹é…è·ç¦»å®¹å·®
         /// </summary>
         public double PortsDistanceTolerance;
 
         /// <summary>
-        /// ÔÊĞíµÄ²àÏò·ÖÖ§¼Ğ½ÇÊı×é£¨µ¥Î»£º¶È£©
+        /// å…è®¸çš„ä¾§å‘åˆ†æ”¯å¤¹è§’æ•°ç»„ï¼ˆå•ä½ï¼šåº¦ï¼‰
         /// </summary>
         public double[] AllowedBranchAngles = new[] { 45.0, 90.0, 180.0 };
 
         /// <summary>
-        /// Ä¬ÈÏ¹¹Ôìº¯Êı£¨Ê¹ÓÃÄ¬ÈÏ¹Ü¾¶ÓëÔ²ĞÎ½ØÃæ£©
+        /// é»˜è®¤æ„é€ å‡½æ•°ï¼ˆä½¿ç”¨é»˜è®¤ç®¡å¾„ä¸åœ†å½¢æˆªé¢ï¼‰
         /// </summary>
         public WyeSettings()
         {
@@ -116,7 +116,7 @@ namespace Elements.Fittings
         }
 
         /// <summary>
-        /// »ùÓÚ¹Ü¾¶£¨Ô²ĞÎ½ØÃæ£©µÄ WyeSettings ¹¹Ôìº¯Êı
+        /// åŸºäºç®¡å¾„ï¼ˆåœ†å½¢æˆªé¢ï¼‰çš„ WyeSettings æ„é€ å‡½æ•°
         /// </summary>
         public WyeSettings(double trunkDiameter,
             double mainDiameter,
@@ -150,21 +150,21 @@ namespace Elements.Fittings
         }
 
         /// <summary>
-        /// Ö§³ÖÏÔÊ½ÉèÖÃÖ÷¸É¡¢Ö±Í¨·ÖÖ§¡¢²àÏò·ÖÖ§¸÷×Ô¿íºÍ¸ß£¨ÊÊºÏ¾ØĞÎ·ç¹Ü/ÒìĞÎ½ØÃæ¹Ü¼ş£©µÄ¹¹Ôìº¯Êı
+        /// æ”¯æŒæ˜¾å¼è®¾ç½®ä¸»å¹²ã€ç›´é€šåˆ†æ”¯ã€ä¾§å‘åˆ†æ”¯å„è‡ªå®½å’Œé«˜ï¼ˆé€‚åˆçŸ©å½¢é£ç®¡/å¼‚å½¢æˆªé¢ç®¡ä»¶ï¼‰çš„æ„é€ å‡½æ•°
         /// </summary>
-        /// <param name="trunkWidth">Ö÷¸É¿í¶È</param>
-        /// <param name="trunkHeight">Ö÷¸É¸ß¶È</param>
-        /// <param name="mainWidth">Ö±Í¨·ÖÖ§¿í¶È</param>
-        /// <param name="mainHeight">Ö±Í¨·ÖÖ§¸ß¶È</param>
-        /// <param name="branchWidth">²àÏò·ÖÖ§¿í¶È</param>
-        /// <param name="branchHeight">²àÏò·ÖÖ§¸ß¶È</param>
-        /// <param name="trunkDistance">Ö÷¸ÉÑÓÉì¾àÀë</param>
-        /// <param name="mainDistance">Ö±Í¨·ÖÖ§ÑÓÉì¾àÀë</param>
-        /// <param name="branchDistance">²àÏò·ÖÖ§ÑÓÉì¾àÀë</param>
-        /// <param name="shapeType">½ØÃæĞÎ×´£¨Ä¬ÈÏÎª¾ØĞÎ Rectangular£©</param>
-        /// <param name="allowedAngles">ÔÊĞíµÄ²àÏò·ÖÖ§½Ç¶ÈÁĞ±í</param>
-        /// <param name="angleTolerance">½Ç¶ÈÅĞ¶ÏÈİ²î</param>
-        /// <param name="portsDistanceTolerance">¶Ë¿Ú¶¨Î»¾àÀëÈİ²î</param>
+        /// <param name="trunkWidth">ä¸»å¹²å®½åº¦</param>
+        /// <param name="trunkHeight">ä¸»å¹²é«˜åº¦</param>
+        /// <param name="mainWidth">ç›´é€šåˆ†æ”¯å®½åº¦</param>
+        /// <param name="mainHeight">ç›´é€šåˆ†æ”¯é«˜åº¦</param>
+        /// <param name="branchWidth">ä¾§å‘åˆ†æ”¯å®½åº¦</param>
+        /// <param name="branchHeight">ä¾§å‘åˆ†æ”¯é«˜åº¦</param>
+        /// <param name="trunkDistance">ä¸»å¹²å»¶ä¼¸è·ç¦»</param>
+        /// <param name="mainDistance">ç›´é€šåˆ†æ”¯å»¶ä¼¸è·ç¦»</param>
+        /// <param name="branchDistance">ä¾§å‘åˆ†æ”¯å»¶ä¼¸è·ç¦»</param>
+        /// <param name="shapeType">æˆªé¢å½¢çŠ¶ï¼ˆé»˜è®¤ä¸ºçŸ©å½¢ Rectangularï¼‰</param>
+        /// <param name="allowedAngles">å…è®¸çš„ä¾§å‘åˆ†æ”¯è§’åº¦åˆ—è¡¨</param>
+        /// <param name="angleTolerance">è§’åº¦åˆ¤æ–­å®¹å·®</param>
+        /// <param name="portsDistanceTolerance">ç«¯å£å®šä½è·ç¦»å®¹å·®</param>
         public WyeSettings(
             double trunkWidth,
             double trunkHeight,
@@ -187,7 +187,7 @@ namespace Elements.Fittings
             this.BranchWidth = branchWidth;
             this.BranchHeight = branchHeight;
 
-            // ¸ø Diameter ´òµ×£¨È¡×î´ó±ß³¤£©£¬·ÀÖ¹ºóĞø¶ÁÈ¡¹Ü¾¶×÷Îª¶µµ×¼ÆËãÊ±³öÏÖ 0
+            // ç»™ Diameter æ‰“åº•ï¼ˆå–æœ€å¤§è¾¹é•¿ï¼‰ï¼Œé˜²æ­¢åç»­è¯»å–ç®¡å¾„ä½œä¸ºå…œåº•è®¡ç®—æ—¶å‡ºç° 0
             this.Diameter = Math.Max(trunkWidth, trunkHeight);
             this.MainDiameter = Math.Max(mainWidth, mainHeight);
             this.BranchDiameter = Math.Max(branchWidth, branchHeight);
@@ -316,30 +316,24 @@ namespace Elements.Fittings
             var mainPosition = MainBranch.Position;
             var branchPosition = SideBranch.Position;
             var origin = Transform.Origin;
+            var inverseRepresentationTransform = UseRepresentationInstances ? GetRotatedTransform().Inverted() : null;
+
+            // Keep one width direction for all non-circular branches. Sweep derives
+            // a frame independently for each line, which otherwise twists an
+            // oblique rectangular branch relative to the main duct.
+            var widthAxis = GetProfileWidthAxis();
 
             var trunkProfile = PipeProfile.Create(Trunk);
             var trunkLine = new Line(Vector3.Origin, trunkPosition - origin);
-            if (UseRepresentationInstances)
-            {
-                trunkLine = trunkLine.TransformedLine(GetRotatedTransform().Inverted());
-            }
-            var trunk = new Sweep(trunkProfile, trunkLine, 0, 0, 0, false);
+            var trunk = CreateSweep(trunkProfile, trunkLine, widthAxis, inverseRepresentationTransform, Trunk.ShapeType);
 
             var mainProfile = PipeProfile.Create(MainBranch);
             var mainLine = new Line(Vector3.Origin, mainPosition - origin);
-            if (UseRepresentationInstances)
-            {
-                mainLine = mainLine.TransformedLine(GetRotatedTransform().Inverted());
-            }
-            var main = new Sweep(mainProfile, mainLine, 0, 0, 0, false);
+            var main = CreateSweep(mainProfile, mainLine, widthAxis, inverseRepresentationTransform, MainBranch.ShapeType);
 
             var branchProfile = PipeProfile.Create(SideBranch);
             var branchLine = new Line(Vector3.Origin, branchPosition - origin);
-            if (UseRepresentationInstances)
-            {
-                branchLine = branchLine.TransformedLine(GetRotatedTransform().Inverted());
-            }
-            var branch = new Sweep(branchProfile, branchLine, 0, 0, 0, false);
+            var branch = CreateSweep(branchProfile, branchLine, widthAxis, inverseRepresentationTransform, SideBranch.ShapeType);
 
             var arrows = new List<SolidOperation>();
             arrows.AddRange(Trunk.GetArrow(Transform.Origin, fittingRotationTransform: GetRotatedTransform()));
@@ -354,6 +348,59 @@ namespace Elements.Fittings
             {
                 Representation = new Geometry.Representation(solidOps);
             }
+        }
+
+        private Sweep CreateSweep(Profile profile,
+                                  Line line,
+                                  Vector3 widthAxis,
+                                  Transform inverseRepresentationTransform,
+                                  ShapeType shapeType)
+        {
+            if (inverseRepresentationTransform != null)
+            {
+                line = line.TransformedLine(inverseRepresentationTransform);
+                widthAxis = inverseRepresentationTransform.OfVector(widthAxis);
+            }
+
+            var profileRotation = shapeType == ShapeType.Circle
+                ? 0
+                : GetProfileRotation(line.Direction(), widthAxis);
+            return new Sweep(profile, line, 0, 0, profileRotation, false);
+        }
+
+        private Vector3 GetProfileWidthAxis()
+        {
+            var widthAxis = MainBranch.Direction.Cross(SideBranch.Direction);
+            if (widthAxis.Length() < Vector3.EPSILON)
+            {
+                widthAxis = Trunk.Direction.Cross(MainBranch.Direction);
+            }
+
+            if (widthAxis.Length() < Vector3.EPSILON)
+            {
+                widthAxis = Vector3.ZAxis.Cross(MainBranch.Direction);
+            }
+
+            if (widthAxis.Length() < Vector3.EPSILON)
+            {
+                widthAxis = Vector3.XAxis.Cross(MainBranch.Direction);
+            }
+
+            return widthAxis.Unitized();
+        }
+
+        private static double GetProfileRotation(Vector3 lineDirection, Vector3 widthAxis)
+        {
+            var direction = lineDirection.Unitized();
+            var projectedWidth = (widthAxis - direction * widthAxis.Dot(direction)).Unitized();
+            if (projectedWidth.Length() < Vector3.EPSILON)
+            {
+                return 0;
+            }
+
+            // Sweep frames use -lineDirection as their local Z axis.
+            var frame = new Transform(Vector3.Origin, direction.Negate());
+            return frame.XAxis.PlaneAngleTo(projectedWidth, frame.ZAxis);
         }
 
         public override Port[] GetPorts()
