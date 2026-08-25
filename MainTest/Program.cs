@@ -227,7 +227,7 @@ namespace MainTest
             Port.ShowArrows = true;
             var wyeSettings = new WyeSettings
             {
-                ShapeType = ShapeType.Oval,
+                ShapeType = ShapeType.Rectangle,
                 Width = 0.4,
                 Height = 0.2,
                 MainWidth = 0.4,
