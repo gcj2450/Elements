@@ -17,6 +17,23 @@ namespace Elements.Fittings
         }
 
         public Reducer(Vector3 position, Vector3 towardsStartDirection, double widthEnd, double heightEnd, double widthStart, double heightStart, ShapeType shapeType, double length, Material material) :
+            this(position, towardsStartDirection, widthEnd, heightEnd, shapeType, widthStart, heightStart, shapeType, length, material)
+        {
+        }
+
+        /// <summary>
+        /// Creates a reducer or transition whose two ports may have different dimensions and shapes.
+        /// </summary>
+        public Reducer(Vector3 position,
+                       Vector3 towardsStartDirection,
+                       double widthEnd,
+                       double heightEnd,
+                       ShapeType shapeTypeEnd,
+                       double widthStart,
+                       double heightStart,
+                       ShapeType shapeTypeStart,
+                       double length,
+                       Material material) :
                                                                         base(false, FittingLocator.Empty(), new Transform(position),
                                                                             material == null ? FittingTreeRouting.DefaultFittingMaterial : material,
                                                                             new Representation(new List<SolidOperation>()),
@@ -25,8 +42,8 @@ namespace Elements.Fittings
                                                                             "")
         {
             applyBranchTransform = true;
-            this.Start = new Port(position + towardsStartDirection.Unitized() * length / 2, towardsStartDirection, widthStart, heightStart, shapeType);
-            this.End = new Port(position - towardsStartDirection.Unitized() * length / 2, towardsStartDirection.Negate(), widthEnd, heightEnd, shapeType);
+            this.Start = new Port(position + towardsStartDirection.Unitized() * length / 2, towardsStartDirection, widthStart, heightStart, shapeTypeStart);
+            this.End = new Port(position - towardsStartDirection.Unitized() * length / 2, towardsStartDirection.Negate(), widthEnd, heightEnd, shapeTypeEnd);
         }
 
         public Transform BranchSideTransform { get; protected set; } = new Transform();
@@ -36,33 +53,52 @@ namespace Elements.Fittings
         /// </summary>
         public static Reducer ReducerForPipe(StraightSegment pipe, double reducerLength, bool reducerAtEnd, double newDiameter, double additionalDistance)
         {
-            var distanceFromEnd = (reducerLength / 2) + additionalDistance;
-            pipe.SetPath();
-
-            var path = reducerAtEnd ? pipe.Path.Segments()[0].Reversed() : pipe.Path.Segments()[0];
-
-            var position = path.DivideByLength(distanceFromEnd)[0].End;
-
-            var orientation = path.Direction();
-            // var fittingMaterial = new Material("green", new Color(0, 1, 0, 0.5);
-            var fittingMaterial = FittingTreeRouting.DefaultFittingMaterial;
             if (pipe.ShapeType == ShapeType.Circle)
             {
-                return new Reducer(position, reducerAtEnd ? orientation.Negate() : orientation, reducerAtEnd ? pipe.Diameter : newDiameter, reducerAtEnd ? newDiameter : pipe.Diameter, reducerLength, fittingMaterial);
+                return ReducerForPipe(pipe, reducerLength, reducerAtEnd, newDiameter, newDiameter, ShapeType.Circle, additionalDistance);
             }
 
             var pipeWidth = pipe.Width > 0 ? pipe.Width : pipe.Diameter;
             var pipeHeight = pipe.Height > 0 ? pipe.Height : pipe.Diameter;
             var scale = Math.Sqrt(Math.Max(newDiameter, 0.000001) / Math.Max(pipe.Diameter, 0.000001));
-            var newWidth = pipeWidth * scale;
-            var newHeight = pipeHeight * scale;
+            return ReducerForPipe(pipe,
+                                  reducerLength,
+                                  reducerAtEnd,
+                                  pipeWidth * scale,
+                                  pipeHeight * scale,
+                                  pipe.ShapeType,
+                                  additionalDistance);
+        }
+
+        /// <summary>
+        /// Creates a reducer for a pipe using the complete target cross section.
+        /// </summary>
+        public static Reducer ReducerForPipe(StraightSegment pipe,
+                                             double reducerLength,
+                                             bool reducerAtEnd,
+                                             double newWidth,
+                                             double newHeight,
+                                             ShapeType newShapeType,
+                                             double additionalDistance)
+        {
+            var distanceFromEnd = (reducerLength / 2) + additionalDistance;
+            pipe.SetPath();
+
+            var path = reducerAtEnd ? pipe.Path.Segments()[0].Reversed() : pipe.Path.Segments()[0];
+            var position = path.DivideByLength(distanceFromEnd)[0].End;
+            var orientation = path.Direction();
+            var fittingMaterial = FittingTreeRouting.DefaultFittingMaterial;
+            var pipeWidth = pipe.Width > 0 ? pipe.Width : pipe.Diameter;
+            var pipeHeight = pipe.Height > 0 ? pipe.Height : pipe.Diameter;
+
             return new Reducer(position,
                                reducerAtEnd ? orientation.Negate() : orientation,
                                reducerAtEnd ? pipeWidth : newWidth,
                                reducerAtEnd ? pipeHeight : newHeight,
+                               reducerAtEnd ? pipe.ShapeType : newShapeType,
                                reducerAtEnd ? newWidth : pipeWidth,
                                reducerAtEnd ? newHeight : pipeHeight,
-                               pipe.ShapeType,
+                               reducerAtEnd ? newShapeType : pipe.ShapeType,
                                reducerLength,
                                fittingMaterial);
         }
@@ -72,37 +108,132 @@ namespace Elements.Fittings
             if (Length().ApproximatelyEquals(0))
             {
                 Representation = new Representation(new List<SolidOperation>());
+                RepresentationInstances = new List<RepresentationInstance>();
                 return;
             }
-            var startNodeTransform = Transform.Concatenated(this.BranchSideTransform);
-            var endNodeTransform = Transform;
 
-            var startProfile = PipeProfile.Create(this.Start);
-            var startLinePoint1 = Start.Position - Transform.Origin;
-            var startLinePoint2 = startNodeTransform.Origin - Transform.Origin;
-            var line = new Line(startLinePoint1, startLinePoint2);
-            var sweep1 = new Sweep(startProfile, line, 0, 0, 0, false);
-
-            var endProfile = PipeProfile.Create(this.End);
-            var endLinePoint1 = End.Position - Transform.Origin;
-            var endLinePoint2 = endNodeTransform.Origin - Transform.Origin;
-            var otherLine = new Line(endLinePoint2, endLinePoint1);
-            var sweep2 = new Sweep(endProfile, otherLine, 0, 0, 0, false);
-
-            var branchSideTransformInverted = new Transform(this.BranchSideTransform);
+            var transition = new ConstructedSolid(CreateTransitionSolid());
+            var branchSideTransformInverted = new Transform(BranchSideTransform);
             branchSideTransformInverted.Invert();
+            var solidOperations = new List<SolidOperation> { transition }
+                .Concat(Start.GetArrow(branchSideTransformInverted.OfPoint(Transform.Origin)))
+                .Concat(End.GetArrow(Transform.Origin))
+                .Concat(GetExtensions())
+                .ToList();
 
-            var arrows = this.Start.GetArrow(branchSideTransformInverted.OfPoint(startNodeTransform.Origin))
-                 .Concat(this.End.GetArrow(endNodeTransform.Origin)).Concat(GetExtensions());
+            Representation = new Representation(new List<SolidOperation>());
+            RepresentationInstances = solidOperations
+                .Select(operation => new RepresentationInstance(new SolidRepresentation(operation), Material))
+                .ToList();
+        }
 
-            // TODO: Update the Factory pattern for setting representationInstances to work with Reducer transforms.
-            // It would also be ideal to fully understand the geometry artifacts seen with certain Reducers that result in
-            // bad boolean graphics which result in invisible or fractured geometry.
-            var solidOperations = new List<SolidOperation> { sweep1, sweep2 }.Concat(arrows).ToList();
-            foreach (var solidOperation in solidOperations)
+        private Solid CreateTransitionSolid()
+        {
+            var startProfile = PipeProfile.Create(Start);
+            var endProfile = PipeProfile.Create(End);
+            var isShapeTransition = Start.ShapeType != End.ShapeType;
+            var vertexCount = isShapeTransition
+                ? FlowSystemConstants.CIRCLE_SEGMENTS
+                : Math.Max(startProfile.Vertices.Count, endProfile.Vertices.Count);
+            var startVertices = CreateTransitionProfile(Start, startProfile, vertexCount, isShapeTransition);
+            var endVertices = CreateTransitionProfile(End, endProfile, vertexCount, isShapeTransition);
+
+            var axis = (Start.Position - End.Position).Unitized();
+            var profileFrame = new Transform(Vector3.Origin, axis.Negate());
+            var widthAxis = profileFrame.XAxis;
+            var heightAxis = profileFrame.YAxis;
+            var localStart = Start.Position - Transform.Origin;
+            var localEnd = End.Position - Transform.Origin;
+
+            var startRing = startVertices
+                .Select(point => localStart + widthAxis * point.X + heightAxis * point.Y)
+                .ToList();
+            var endRing = endVertices
+                .Select(point => localEnd + widthAxis * point.X + heightAxis * point.Y)
+                .ToList();
+
+            var solid = new Solid();
+            solid.AddFace(new Polygon(startRing), mergeVerticesAndEdges: true);
+            solid.AddFace(new Polygon(endRing), mergeVerticesAndEdges: true, reverse: true);
+            for (var i = 0; i < vertexCount; i++)
             {
-                this.RepresentationInstances.Add(new RepresentationInstance(new SolidRepresentation(solidOperation), this.Material));
+                var next = (i + 1) % vertexCount;
+                solid.AddFace(new Polygon(new[]
+                {
+                    startRing[i],
+                    endRing[i],
+                    endRing[next]
+                }), mergeVerticesAndEdges: true);
+                solid.AddFace(new Polygon(new[]
+                {
+                    startRing[i],
+                    endRing[next],
+                    startRing[next]
+                }), mergeVerticesAndEdges: true);
             }
+
+            return solid;
+        }
+
+        private static List<Vector3> CreateTransitionProfile(Port port,
+                                                              Polygon profile,
+                                                              int count,
+                                                              bool useAngularSampling)
+        {
+            if (!useAngularSampling || port.ShapeType == ShapeType.Custom)
+            {
+                return SampleProfile(profile, count);
+            }
+
+            var halfWidth = (port.Width > 0 ? port.Width : port.Diameter) / 2.0;
+            var halfHeight = (port.Height > 0 ? port.Height : port.Diameter) / 2.0;
+            var result = new List<Vector3>(count);
+            for (var i = 0; i < count; i++)
+            {
+                var angle = 2.0 * Math.PI * i / count;
+                var x = Math.Cos(angle);
+                var y = Math.Sin(angle);
+                if (port.ShapeType == ShapeType.Rectangle)
+                {
+                    var scale = 1.0 / Math.Max(Math.Abs(x) / halfWidth, Math.Abs(y) / halfHeight);
+                    result.Add(new Vector3(x * scale, y * scale));
+                }
+                else
+                {
+                    result.Add(new Vector3(x * halfWidth, y * halfHeight));
+                }
+            }
+
+            return result;
+        }
+
+        private static List<Vector3> SampleProfile(Polygon profile, int count)
+        {
+            if (profile.Vertices.Count == count)
+            {
+                return profile.Vertices.ToList();
+            }
+
+            var edges = profile.Segments();
+            var lengths = edges.Select(edge => edge.Length()).ToArray();
+            var perimeter = lengths.Sum();
+            var result = new List<Vector3>(count);
+            for (var i = 0; i < count; i++)
+            {
+                var distance = perimeter * i / count;
+                var edgeIndex = 0;
+                while (edgeIndex < lengths.Length - 1 && distance > lengths[edgeIndex])
+                {
+                    distance -= lengths[edgeIndex];
+                    edgeIndex++;
+                }
+
+                var edge = edges[edgeIndex];
+                var parameter = lengths[edgeIndex].ApproximatelyEquals(0) ? 0 : distance / lengths[edgeIndex];
+                result.Add(edge.Start + (edge.End - edge.Start) * parameter);
+            }
+
+            return result;
         }
 
         public override void ApplyAdditionalTransform()

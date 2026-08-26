@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Elements.Geometry;
 using Elements.Geometry.Solids;
@@ -15,12 +15,68 @@ namespace Elements.Flow
 
         public bool? IsLoop { get; set; }
 
+        /// <summary>
+        /// 设置形状参数，如果是圆形：取width和height的最大值作为直径
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="shapeType"></param>
         public void SetShape(double width, double height, Elements.Fittings.ShapeType shapeType)
         {
             Width = width;
             Height = height;
             ShapeType = shapeType;
             Diameter = shapeType == Elements.Fittings.ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height);
+        }
+
+        /// <summary>
+        /// Tests whether two flow connections have the same complete cross section.
+        /// </summary>
+        public bool HasSameProfile(Connection other, double tolerance = Vector3.EPSILON)
+        {
+            if (other == null || ShapeType != other.ShapeType)
+            {
+                return false;
+            }
+
+            if (ShapeType == Elements.Fittings.ShapeType.Circle)
+            {
+                return Diameter.ApproximatelyEquals(other.Diameter, tolerance);
+            }
+
+            return EffectiveWidth().ApproximatelyEquals(other.EffectiveWidth(), tolerance) &&
+                   EffectiveHeight().ApproximatelyEquals(other.EffectiveHeight(), tolerance);
+        }
+
+        /// <summary>
+        /// Tests whether this flow connection and a fitting port have the same complete cross section.
+        /// </summary>
+        public bool HasSameProfile(Elements.Fittings.Port port, double tolerance = Vector3.EPSILON)
+        {
+            if (port == null || ShapeType != port.ShapeType)
+            {
+                return false;
+            }
+
+            if (ShapeType == Elements.Fittings.ShapeType.Circle)
+            {
+                return Diameter.ApproximatelyEquals(port.Diameter, tolerance);
+            }
+
+            var portWidth = port.Width > 0 ? port.Width : port.Diameter;
+            var portHeight = port.Height > 0 ? port.Height : port.Diameter;
+            return EffectiveWidth().ApproximatelyEquals(portWidth, tolerance) &&
+                   EffectiveHeight().ApproximatelyEquals(portHeight, tolerance);
+        }
+
+        private double EffectiveWidth()
+        {
+            return Width > 0 ? Width : Diameter;
+        }
+
+        private double EffectiveHeight()
+        {
+            return Height > 0 ? Height : Diameter;
         }
 
         public override void UpdateRepresentations()

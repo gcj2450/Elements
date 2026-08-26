@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Elements.Fittings;
 using Elements.Geometry;
+using Elements.Geometry.Solids;
 using Elements.Flow;
 using Xunit;
 
@@ -171,10 +172,87 @@ namespace Elements.MEP.Tests
             var cross = Assert.IsType<Cross>(routing.ManifoldPipe(new[] { main, branch, oppositeBranch }, outgoing));
             AssertPortShape(cross.Trunk, ShapeType.Rectangle, 0.4, 0.2);
             Assert.Contains(cross.BranchSidePorts(), port => port.ShapeType == ShapeType.Oval && port.Width == 0.25);
+            Assert.All(cross.GetPorts(), port =>
+                Assert.True(port.Position.DistanceTo(junction.Position).ApproximatelyEquals(0.4 * 1.1)));
 
             var manifold = Assert.IsType<Manifold>(routing.ManifoldPipe(new[] { branch, oppositeBranch }, outgoing));
             AssertPortShape(manifold.Trunk, ShapeType.Rectangle, 0.4, 0.2);
             Assert.Contains(manifold.Branches, port => port.ShapeType == ShapeType.Oval && port.Width == 0.25);
+        }
+
+        [Fact]
+        public void FlowConnectionProfileComparisonUsesShapeAndDimensions()
+        {
+            var start = new Node(Vector3.Origin);
+            var end = new Node(Vector3.XAxis);
+            var rectangle = new Connection(start, end, 0.4, 0.2, ShapeType.Rectangle);
+            var sameRectangle = new Connection(start, end, 0.4, 0.2, ShapeType.Rectangle);
+            var rotatedRectangle = new Connection(start, end, 0.2, 0.4, ShapeType.Rectangle);
+            var oval = new Connection(start, end, 0.4, 0.2, ShapeType.Oval);
+
+            Assert.Equal(rectangle.Diameter, rotatedRectangle.Diameter);
+            Assert.True(rectangle.HasSameProfile(sameRectangle));
+            Assert.False(rectangle.HasSameProfile(rotatedRectangle));
+            Assert.False(rectangle.HasSameProfile(oval));
+        }
+
+        [Theory]
+        [InlineData(ShapeType.Rectangle)]
+        [InlineData(ShapeType.Oval)]
+        public void ChangePipeCreatesRoundToNonCircularTransition(ShapeType shapeType)
+        {
+            var routing = new FittingTreeRouting(new Tree(new string[0]));
+            var junction = new Node(Vector3.Origin);
+            var incoming = Connection(new Vector3(-1, 0, 0), junction, false, 0.4, 0.2, shapeType);
+            var outgoing = Connection(new Vector3(1, 0, 0), junction, true, 0.3, 0.3, ShapeType.Circle);
+
+            var transition = Assert.IsType<Reducer>(routing.ChangePipe(incoming, outgoing));
+            transition.UpdateRepresentations();
+
+            AssertPortShape(transition.Start, shapeType, 0.4, 0.2);
+            AssertPortShape(transition.End, ShapeType.Circle, 0.3, 0.3);
+            var representation = Assert.IsType<SolidRepresentation>(
+                Assert.Single(transition.RepresentationInstances).Representation);
+            var constructedSolid = Assert.IsType<ConstructedSolid>(Assert.Single(representation.SolidOperations));
+            var axis = (transition.Start.Position - transition.End.Position).Unitized();
+            var localStart = transition.Start.Position - transition.Transform.Origin;
+            var localEnd = transition.End.Position - transition.Transform.Origin;
+            var startPlane = localStart.Dot(axis);
+            var endPlane = localEnd.Dot(axis);
+            Assert.All(constructedSolid.Solid.Vertices.Values, vertex =>
+            {
+                var vertexPlane = vertex.Point.Dot(axis);
+                Assert.True(vertexPlane.ApproximatelyEquals(startPlane) ||
+                            vertexPlane.ApproximatelyEquals(endPlane));
+            });
+        }
+
+        [Theory]
+        [InlineData(ShapeType.Rectangle)]
+        [InlineData(ShapeType.Oval)]
+        public void FlowTreeBuildsRoundToNonCircularTransition(ShapeType shapeType)
+        {
+            var tree = new Tree(new[] { $"Transition-{shapeType}" });
+            tree.SetOutletPosition(new Vector3(4, 0, 0));
+            var inlet = tree.AddInlet(Vector3.Origin, 1.0);
+            var transitionNode = tree.SplitConnectionThroughPoint(
+                tree.GetOutgoingConnection(inlet),
+                new Vector3(2, 0, 0),
+                out var connections);
+
+            connections[0].SetShape(0.4, 0.2, shapeType);
+            connections[1].SetShape(0.3, 0.3, ShapeType.Circle);
+
+            var routing = new FittingTreeRouting(tree)
+            {
+                PipeSizeShouldMatchConnection = true
+            };
+            var fittings = routing.BuildFittingTree(out var errors);
+
+            Assert.Empty(errors);
+            Assert.Contains(fittings.FittingsOfType<Reducer>(),
+                            reducer => reducer.Start.ShapeType != reducer.End.ShapeType);
+            Assert.NotNull(transitionNode);
         }
 
         private static Connection Connection(Vector3 otherPosition,

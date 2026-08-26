@@ -35,22 +35,43 @@ namespace Elements.Flow
             }
             this.Representation.SolidOperations = new List<SolidOperation>();
 
-            var pipeProfile = new Circle(new Vector3(), DefaultRepresentationDiameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
-            var sameStartEnd = 0;
+            var connections = Tree?.GetConnectionsForSection(this) ?? Array.Empty<Connection>();
 
-            foreach (var conn in this.Path.Segments())
+            if (connections.Length == 0)
             {
-                if (conn.End != conn.Start)
+                var fallbackProfile = new Circle(new Vector3(), DefaultRepresentationDiameter / 2).ToPolygon(FlowSystemConstants.CIRCLE_SEGMENTS);
+                foreach (var segment in this.Path.Segments())
                 {
-                    var centerLine = new Line(conn.End, conn.Start);
-                    var pipe = new Sweep(pipeProfile, centerLine, 0, 0, 0, false);
-                    this.Representation.SolidOperations.Add(pipe);
+                    AddSweep(segment.Start, segment.End, fallbackProfile);
                 }
-                else
+
+                return;
+            }
+
+            foreach (var connection in connections)
+            {
+                var fallbackDiameter = connection.Diameter > 0 ? connection.Diameter : DefaultRepresentationDiameter;
+                var width = connection.ShapeType == Fittings.ShapeType.Circle
+                    ? fallbackDiameter
+                    : (connection.Width > 0 ? connection.Width : fallbackDiameter);
+                var height = connection.ShapeType == Fittings.ShapeType.Circle
+                    ? fallbackDiameter
+                    : (connection.Height > 0 ? connection.Height : fallbackDiameter);
+                var profile = Fittings.PipeProfile.Create(fallbackDiameter, width, height, connection.ShapeType);
+                AddSweep(connection.Start.Position, connection.End.Position, profile);
+            }
+
+            void AddSweep(Vector3 start, Vector3 end, Polygon profile)
+            {
+                if (end != start)
                 {
-                    sameStartEnd++;
-                    Console.WriteLine("Start and end were the same");
+                    var centerLine = new Line(end, start);
+                    var pipe = new Sweep(profile, centerLine, 0, 0, 0, false);
+                    Representation.SolidOperations.Add(pipe);
+                    return;
                 }
+
+                Console.WriteLine("Start and end were the same");
             }
         }
 

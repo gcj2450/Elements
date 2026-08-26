@@ -600,7 +600,7 @@ namespace Elements.Flow
                 {
                     continue;
                 }
-                if (includeDiameterCheck && incomingConnection.Diameter != outgoingConnection.Diameter)
+                if (includeDiameterCheck && !incomingConnection.HasSameProfile(outgoingConnection))
                 {
                     continue;
                 }

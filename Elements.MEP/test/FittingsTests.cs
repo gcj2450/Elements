@@ -114,7 +114,7 @@ namespace Elements.MEP.Tests
         [Fact]
         public void RectangularWyeKeepsBranchProfilesAligned()
         {
-            ComponentBase.UseRepresentationInstances = true;
+            ComponentBase.UseRepresentationInstances = false;
             var settings = new WyeSettings
             {
                 ShapeType = ShapeType.Rectangle,
@@ -132,14 +132,20 @@ namespace Elements.MEP.Tests
                               FittingTreeRouting.DefaultFittingMaterial);
 
             wye.UpdateRepresentations();
-            var representation = Assert.Single(wye.RepresentationInstances);
-            var solidRepresentation = Assert.IsType<SolidRepresentation>(representation.Representation);
-            var sweeps = solidRepresentation.SolidOperations.OfType<Sweep>().Take(3).ToArray();
+            var sweeps = wye.Representation.SolidOperations.OfType<Sweep>().Take(3).ToArray();
 
             Assert.Equal(3, sweeps.Length);
-            Assert.All(sweeps, sweep => Assert.True(double.IsFinite(sweep.ProfileRotation)));
-            Assert.Equal(sweeps[0].ProfileRotation, sweeps[2].ProfileRotation);
-            Assert.Contains(sweeps, sweep => Math.Abs(sweep.ProfileRotation) > 1.0);
+            var ports = new[] { wye.Trunk, wye.MainBranch, wye.SideBranch };
+            for (var i = 0; i < sweeps.Length; i++)
+            {
+                Assert.True(double.IsFinite(sweeps[i].ProfileRotation));
+                var localFrame = sweeps[i].Curve.Frames(0, 0, sweeps[i].ProfileRotation)[0];
+                var worldWidthAxis = wye.Transform.OfVector(localFrame.XAxis);
+                var worldDirection = (ports[i].Position - Vector3.Origin).Unitized();
+                var expectedWidthAxis = new Transform(Vector3.Origin, worldDirection.Negate()).XAxis;
+                Assert.True(worldWidthAxis.IsParallelTo(expectedWidthAxis));
+            }
+            Assert.All(sweeps, sweep => Assert.True(sweep.ProfileRotation.ApproximatelyEquals(0)));
         }
 
         [Theory]

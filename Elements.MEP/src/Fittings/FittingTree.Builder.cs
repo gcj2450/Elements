@@ -327,9 +327,9 @@ namespace Elements.Fittings
             }
             if (trunkConnector.Position.IsAlmostEqualTo(branchConnector.Position, _portsDistanceTolerance))
             {
-                if (trunkConnector.Diameter != branchConnector.Diameter)
+                if (!ProfilesMatch(trunkConnector, branchConnector))
                 {
-                    throw new CannotMakeConnectionException($"Connection is not acceptable because the diameters are different.", trunkConnector.Position);
+                    throw new CannotMakeConnectionException($"Connection is not acceptable because the profiles are different.", trunkConnector.Position);
                 }
                 // The connectors are already so close they are connected, no pipe necessary.
                 pipedPorts.Add(branchConnector);
@@ -364,17 +364,18 @@ namespace Elements.Fittings
             // if resizing is required
             if (Routing.PipeSizeShouldMatchConnection &&
              trunkPortToConnectionLookup.TryGetValue(branchConnector, out var pipeConnection) &&
-             (trunkConnector.Diameter != pipeConnection.Diameter || branchConnector.Diameter != pipeConnection.Diameter))
+             (!pipeConnection.HasSameProfile(trunkConnector) || !pipeConnection.HasSameProfile(branchConnector)))
             {
                 // This is the new path and should become the default rather than the following if else below.
+                ApplyProfile(newPipe, pipeConnection);
                 var availableLength = newPipe.Length();
-                var needsTwoReducers = trunkConnector.Diameter != pipeConnection.Diameter && branchConnector.Diameter != pipeConnection.Diameter;
+                var needsTwoReducers = !pipeConnection.HasSameProfile(trunkConnector) && !pipeConnection.HasSameProfile(branchConnector);
                 // First create reducer on trunkside
-                if (!trunkConnector.Diameter.ApproximatelyEquals(pipeConnection.Diameter))
+                if (!pipeConnection.HasSameProfile(trunkConnector))
                 {
                     var reducerOnBranchSide = false;
                     newPipe.Diameter = pipeConnection.Diameter;
-                    var reducer = _routing.ReduceOrJoin(newPipe, reducerOnBranchSide, trunkConnector.Diameter);
+                    var reducer = ReduceOrJoin(newPipe, reducerOnBranchSide, trunkConnector);
                     reducer.ComponentLocator.MatchNetworkSection(newPipe.ComponentLocator);
                     if (reducer is Assembly reducerAssembly)
                     {
@@ -395,11 +396,11 @@ namespace Elements.Fittings
                     createdConns.Add(reducer as Fitting);
                 }
                 // reducer on branchside
-                if (!branchConnector.Diameter.ApproximatelyEquals(pipeConnection.Diameter))
+                if (!pipeConnection.HasSameProfile(branchConnector))
                 {
                     var reducerOnBranchSide = true;
                     newPipe.Diameter = pipeConnection.Diameter;
-                    var reducer = _routing.ReduceOrJoin(newPipe, reducerOnBranchSide, branchConnector.Diameter);
+                    var reducer = ReduceOrJoin(newPipe, reducerOnBranchSide, branchConnector);
                     reducer.ComponentLocator.MatchNetworkSection(newPipe.ComponentLocator);
                     if (reducer is Assembly reducerAssembly)
                     {
@@ -441,7 +442,7 @@ namespace Elements.Fittings
                 }
 
             }
-            else if (!trunkConnector.Diameter.ApproximatelyEquals(branchConnector.Diameter))
+            else if (!ProfilesMatch(trunkConnector, branchConnector))
             {
                 // TODO: this is the legacy path and should be removed
                 bool reducerOnBranchSide;
@@ -451,8 +452,10 @@ namespace Elements.Fittings
                 {
                     GetNewReducerSettings(trunkConnector, branchConnector, pipesConnection, out reducerOnBranchSide, out newDiameter, out oldDiameter);
                 }
-                newPipe.Diameter = newDiameter;
-                var reducer = _routing.ReduceOrJoin(newPipe, reducerOnBranchSide, oldDiameter);
+                var pipeProfile = reducerOnBranchSide ? trunkConnector : branchConnector;
+                var targetProfile = reducerOnBranchSide ? branchConnector : trunkConnector;
+                ApplyProfile(newPipe, pipeProfile);
+                var reducer = ReduceOrJoin(newPipe, reducerOnBranchSide, targetProfile);
                 reducer.ComponentLocator.MatchNetworkSection(newPipe.ComponentLocator);
                 if (reducer is Assembly reducerAssembly)
                 {
@@ -517,6 +520,72 @@ namespace Elements.Fittings
             }
             newPipe?.SetPath();
             return newPipe;
+        }
+
+        private IReducer ReduceOrJoin(StraightSegment pipe, bool reducerAtEnd, Port target)
+        {
+            if (pipe.ShapeType == ShapeType.Circle && target.ShapeType == ShapeType.Circle)
+            {
+                return _routing.ReduceOrJoin(pipe, reducerAtEnd, target.Diameter);
+            }
+
+            var width = target.ShapeType == ShapeType.Circle
+                ? target.Diameter
+                : (target.Width > 0 ? target.Width : target.Diameter);
+            var height = target.ShapeType == ShapeType.Circle
+                ? target.Diameter
+                : (target.Height > 0 ? target.Height : target.Diameter);
+            return _routing.ReduceOrJoin(pipe, reducerAtEnd, width, height, target.ShapeType);
+        }
+
+        private static bool ProfilesMatch(Port first, Port second)
+        {
+            if (first.ShapeType != second.ShapeType)
+            {
+                return false;
+            }
+
+            if (first.ShapeType == ShapeType.Circle)
+            {
+                return first.Diameter.ApproximatelyEquals(second.Diameter);
+            }
+
+            var firstWidth = first.Width > 0 ? first.Width : first.Diameter;
+            var firstHeight = first.Height > 0 ? first.Height : first.Diameter;
+            var secondWidth = second.Width > 0 ? second.Width : second.Diameter;
+            var secondHeight = second.Height > 0 ? second.Height : second.Diameter;
+            return firstWidth.ApproximatelyEquals(secondWidth) &&
+                   firstHeight.ApproximatelyEquals(secondHeight);
+        }
+
+        private static void ApplyProfile(StraightSegment pipe, Connection connection)
+        {
+            var width = connection.ShapeType == ShapeType.Circle
+                ? connection.Diameter
+                : (connection.Width > 0 ? connection.Width : connection.Diameter);
+            var height = connection.ShapeType == ShapeType.Circle
+                ? connection.Diameter
+                : (connection.Height > 0 ? connection.Height : connection.Diameter);
+            ApplyProfile(pipe, width, height, connection.ShapeType);
+        }
+
+        private static void ApplyProfile(StraightSegment pipe, Port port)
+        {
+            var width = port.ShapeType == ShapeType.Circle
+                ? port.Diameter
+                : (port.Width > 0 ? port.Width : port.Diameter);
+            var height = port.ShapeType == ShapeType.Circle
+                ? port.Diameter
+                : (port.Height > 0 ? port.Height : port.Diameter);
+            ApplyProfile(pipe, width, height, port.ShapeType);
+        }
+
+        private static void ApplyProfile(StraightSegment pipe, double width, double height, ShapeType shapeType)
+        {
+            pipe.Width = width;
+            pipe.Height = height;
+            pipe.ShapeType = shapeType;
+            pipe.Diameter = shapeType == ShapeType.Circle ? Math.Max(width, height) : Math.Sqrt(width * height);
         }
 
         private void GetNewReducerSettings(Port trunkConnector, Port branchConnector, Connection pipesConnection, out bool reducerOnBranchSide, out double newDiameter, out double oldDiameter)

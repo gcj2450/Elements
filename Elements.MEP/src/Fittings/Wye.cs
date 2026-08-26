@@ -342,22 +342,18 @@ namespace Elements.Fittings
             var origin = Transform.Origin;
             var inverseRepresentationTransform = UseRepresentationInstances ? GetRotatedTransform().Inverted() : null;
 
-            // Keep one width direction for all non-circular branches. Sweep derives
-            // a frame independently for each line, which otherwise twists an
-            // oblique rectangular branch relative to the main duct.
-            var widthAxis = GetProfileWidthAxis();
 
             var trunkProfile = PipeProfile.Create(Trunk);
             var trunkLine = new Line(Vector3.Origin, trunkPosition - origin);
-            var trunk = CreateSweep(trunkProfile, trunkLine, widthAxis, inverseRepresentationTransform, Trunk.ShapeType);
+            var trunk = CreateSweep(trunkProfile, trunkLine, inverseRepresentationTransform, Trunk.ShapeType);
 
             var mainProfile = PipeProfile.Create(MainBranch);
             var mainLine = new Line(Vector3.Origin, mainPosition - origin);
-            var main = CreateSweep(mainProfile, mainLine, widthAxis, inverseRepresentationTransform, MainBranch.ShapeType);
+            var main = CreateSweep(mainProfile, mainLine, inverseRepresentationTransform, MainBranch.ShapeType);
 
             var branchProfile = PipeProfile.Create(SideBranch);
             var branchLine = new Line(Vector3.Origin, branchPosition - origin);
-            var branch = CreateSweep(branchProfile, branchLine, widthAxis, inverseRepresentationTransform, SideBranch.ShapeType);
+            var branch = CreateSweep(branchProfile, branchLine, inverseRepresentationTransform, SideBranch.ShapeType);
 
             var arrows = new List<SolidOperation>();
             arrows.AddRange(Trunk.GetArrow(Transform.Origin, fittingRotationTransform: GetRotatedTransform()));
@@ -376,10 +372,12 @@ namespace Elements.Fittings
 
         private Sweep CreateSweep(Profile profile,
                                   Line line,
-                                  Vector3 widthAxis,
                                   Transform inverseRepresentationTransform,
                                   ShapeType shapeType)
         {
+            // Straight segments use Sweep's world-oriented frame. Preserve that
+            // frame when the fitting geometry is transformed for instancing.
+            var widthAxis = new Transform(Vector3.Origin, line.Direction().Negate()).XAxis;
             if (inverseRepresentationTransform != null)
             {
                 line = line.TransformedLine(inverseRepresentationTransform);
@@ -390,27 +388,6 @@ namespace Elements.Fittings
                 ? 0
                 : GetProfileRotation(line.Direction(), widthAxis);
             return new Sweep(profile, line, 0, 0, profileRotation, false);
-        }
-
-        private Vector3 GetProfileWidthAxis()
-        {
-            var widthAxis = MainBranch.Direction.Cross(SideBranch.Direction);
-            if (widthAxis.Length() < Vector3.EPSILON)
-            {
-                widthAxis = Trunk.Direction.Cross(MainBranch.Direction);
-            }
-
-            if (widthAxis.Length() < Vector3.EPSILON)
-            {
-                widthAxis = Vector3.ZAxis.Cross(MainBranch.Direction);
-            }
-
-            if (widthAxis.Length() < Vector3.EPSILON)
-            {
-                widthAxis = Vector3.XAxis.Cross(MainBranch.Direction);
-            }
-
-            return widthAxis.Unitized();
         }
 
         private static double GetProfileRotation(Vector3 lineDirection, Vector3 widthAxis)

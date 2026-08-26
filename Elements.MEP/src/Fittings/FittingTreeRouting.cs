@@ -341,6 +341,55 @@ namespace Elements.Fittings
             return reducer;
         }
 
+        /// <summary>
+        /// Creates a reducer or transition to a complete target cross section.
+        /// </summary>
+        public virtual IReducer ReduceOrJoin(StraightSegment pipe,
+                                             bool reducerAtEnd,
+                                             double newWidth,
+                                             double newHeight,
+                                             ShapeType newShapeType,
+                                             double additionalDistance = 0)
+        {
+            var length = 0.03;
+            var extensionStart = 0d;
+            var extensionEnd = 0d;
+            var newDiameter = newShapeType == ShapeType.Circle
+                ? Math.Max(newWidth, newHeight)
+                : Math.Sqrt(newWidth * newHeight);
+
+            if (FittingCatalog != null)
+            {
+                var largeDiameter = Math.Max(pipe.Diameter, newDiameter);
+                var smallDiameter = Math.Min(pipe.Diameter, newDiameter);
+                var reducerPart = FittingCatalog.GetBestReducerPart(largeDiameter, smallDiameter);
+                if (reducerPart == null)
+                {
+                    return null;
+                }
+
+                length = reducerPart.Length;
+                extensionStart = reducerPart.ExtensionLarge;
+                extensionEnd = reducerPart.ExtensionSmall;
+            }
+
+            var reducer = Reducer.ReducerForPipe(pipe,
+                                                 length,
+                                                 reducerAtEnd,
+                                                 newWidth,
+                                                 newHeight,
+                                                 newShapeType,
+                                                 additionalDistance);
+            if (reducer.Start.Diameter < reducer.End.Diameter)
+            {
+                (extensionStart, extensionEnd) = (extensionEnd, extensionStart);
+            }
+
+            reducer.Start.Dimensions = new PortDimensions(extensionStart, 0, 0);
+            reducer.End.Dimensions = new PortDimensions(extensionEnd, 0, 0);
+            return reducer;
+        }
+
         public virtual Fitting BranchPipe(Connection incoming1, Connection incoming2, Connection outgoing)
         {
             (Connection mainConnection, Connection branchConnection) = Wye.GetMainAndBranch(new[] { incoming1, incoming2 }, outgoing);
@@ -369,6 +418,30 @@ namespace Elements.Fittings
                 AllowedBranchAngles = AllowedWyeBranchAngles,
                 AngleTolerance = AngleTolerance
             };
+
+            var trunkShape = GetShape(outgoing, trunkDiameter);
+            var mainShape = GetShape(mainConnection, mainDiameter);
+            var branchShape = GetShape(branchConnection, branchDiameter);
+            wyes.ShapeType = trunkShape.shapeType;
+            wyes.Width = trunkShape.width;
+            wyes.Height = trunkShape.height;
+            wyes.MainWidth = mainShape.width;
+            wyes.MainHeight = mainShape.height;
+            wyes.BranchWidth = branchShape.width;
+            wyes.BranchHeight = branchShape.height;
+
+            if (FittingCatalog == null)
+            {
+                var junctionDistance = new[]
+                {
+                    trunkShape.width, trunkShape.height,
+                    mainShape.width, mainShape.height,
+                    branchShape.width, branchShape.height
+                }.Max() * lengthMultiplier;
+                wyes.TrunkDistance = Math.Max(wyes.TrunkDistance, junctionDistance);
+                wyes.MainDistance = Math.Max(wyes.MainDistance, junctionDistance);
+                wyes.BranchDistance = Math.Max(wyes.BranchDistance, junctionDistance);
+            }
 
             var mainExtension = 0d;
             var branchExtension = 0d;
@@ -442,6 +515,35 @@ namespace Elements.Fittings
                         Diameter_C = NonZeroDiameter(branchC),
                         Diameter = NonZeroDiameter(outgoing),
                     };
+
+                    var trunkShape = GetShape(outgoing, settings.Diameter);
+                    var mainShape = GetShape(main, settings.Diameter_A);
+                    var branchBShape = GetShape(branchB, settings.Diameter_B);
+                    var branchCShape = GetShape(branchC, settings.Diameter_C);
+                    settings.ShapeType = trunkShape.shapeType;
+                    settings.Width = trunkShape.width;
+                    settings.Height = trunkShape.height;
+                    settings.Width_A = mainShape.width;
+                    settings.Height_A = mainShape.height;
+                    settings.Width_B = branchBShape.width;
+                    settings.Height_B = branchBShape.height;
+                    settings.Width_C = branchCShape.width;
+                    settings.Height_C = branchCShape.height;
+
+                    if (FittingCatalog == null)
+                    {
+                        var junctionDistance = new[]
+                        {
+                            trunkShape.width, trunkShape.height,
+                            mainShape.width, mainShape.height,
+                            branchBShape.width, branchBShape.height,
+                            branchCShape.width, branchCShape.height
+                        }.Max() * lengthMultiplier;
+                        settings.Distance_Trunk = junctionDistance;
+                        settings.Distance_A = junctionDistance;
+                        settings.Distance_B = junctionDistance;
+                        settings.Distance_C = junctionDistance;
+                    }
 
                     var angleB = RoundAngle(branchB.Direction().AngleTo(main.Direction()));
                     var angleC = RoundAngle(branchC.Direction().AngleTo(main.Direction()));
@@ -642,22 +744,18 @@ namespace Elements.Fittings
                 }
             }
 
-            var reducer = new Reducer(incoming.End.Position,
-                                      incoming.Direction().Negate(),
-                                      incoming.Diameter,
-                                      outgoing.Diameter,
-                                      length,
-                                      DefaultFittingMaterial);
-
             var startShape = GetShape(incoming, incoming.Diameter);
             var endShape = GetShape(outgoing, outgoing.Diameter);
-            reducer.Start.Width = startShape.width;
-            reducer.Start.Height = startShape.height;
-            reducer.Start.ShapeType = startShape.shapeType;
-            reducer.End.Width = endShape.width;
-            reducer.End.Height = endShape.height;
-            reducer.End.ShapeType = endShape.shapeType;
-
+            var reducer = new Reducer(incoming.End.Position,
+                                      incoming.Direction().Negate(),
+                                      endShape.width,
+                                      endShape.height,
+                                      endShape.shapeType,
+                                      startShape.width,
+                                      startShape.height,
+                                      startShape.shapeType,
+                                      length,
+                                      DefaultFittingMaterial);
             if (reducer.Start.Diameter < reducer.End.Diameter)
             {
                 (extensionStart, extensionEnd) = (extensionEnd, extensionStart);

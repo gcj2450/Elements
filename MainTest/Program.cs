@@ -18,12 +18,17 @@ namespace MainTest
     {
         static void Main(string[] args)
         {
-            //PipeWithTwoReducers(false);
-            //MakeElbow();
-            //MakeCross();
-            //MakeWye();
-            MakeReducer();
-            //FittingCatalogTreeWithCross();
+            //var shapeType = ShapeType.Oval;
+            //    //shapeType=  args.Length > 0 && Enum.TryParse<ShapeType>(args[0], true, out var parsedShapeType)
+            //    //? parsedShapeType
+            //    //: ShapeType.Rectangle;
+            //FittingCatalogTreeWithCross(shapeType);
+
+            //TestRouting();
+
+            MakeElbow();
+            MakeCross();
+            MakeWye();
         }
 
         public static void TestRouting()
@@ -299,78 +304,86 @@ namespace MainTest
             model.ToGlTF(TestUtils.GetTestPath() + "reducer.gltf", false);
         }
 
-        public static void FittingCatalogTreeWithCross()
+        /// <summary>
+        /// Builds one routed Flow.Tree containing straight segments, an elbow, a tee,
+        /// a cross, a same-shape reducer, and (for non-circular ducts) a round transition.
+        /// </summary>
+        public static FittingTree FittingCatalogTreeWithCross(ShapeType shapeType)
         {
-            Tree tree = GetSampleTreeWithCross(0.01);
-            foreach (var connection in tree.Connections)
+            if (shapeType != ShapeType.Circle && shapeType != ShapeType.Rectangle && shapeType != ShapeType.Oval)
             {
-                connection.Diameter = Units.InchesToMeters(4);
-            }
-            var crossNode = tree.InternalNodes.FirstOrDefault(n => tree.GetIncomingConnections(n).Count == 3);
-            var crossIncomingConnections = tree.GetIncomingConnections(crossNode);
-            crossIncomingConnections[0].Diameter = Units.InchesToMeters(2);
-            crossIncomingConnections[1].Diameter = Units.InchesToMeters(2);
-
-            tree.GetIncomingConnections(tree.Outlet).First().Diameter = Units.InchesToMeters(4);
-            foreach (var inlet in tree.Inlets)
-            {
-                tree.GetOutgoingConnection(inlet).Diameter = Units.InchesToMeters(4);
-            }
-            var routing = new FittingTreeRouting(tree);
-            routing.FittingCatalog = LoadFittingCatalog();
-            routing.PipeSizeShouldMatchConnection = true;
-            var fittings = routing.BuildFittingTree(out var errors);
-             TestUtils.SaveToGltf(nameof(FittingCatalogTreeWithCross), new Element[] { fittings });
-        }
-
-
-        private static Tree GetSampleTreeWithCross(double flowPerInlet = 5)
-        {
-            var tree = new Tree(new List<string> { "Tree" });
-            var inletPositions = new List<Vector3> {new Vector3(5, 0, 10),
-                                                    new Vector3(5, 2, 10) ,
-                                                    new Vector3(6, 1, 10) };
-            var inlets = new List<Leaf>();
-            Node lastNode = null;
-
-            var aboveManifoldInlet = tree.AddInlet(inletPositions[0], flowPerInlet, lastNode);
-            var outgoing = tree.GetOutgoingConnection(aboveManifoldInlet);
-            lastNode = tree.SplitConnectionThroughPoint(outgoing, new Vector3(5, 1, 9), out var splitConns);
-            tree.ConnectVertically(splitConns[0], 0);
-
-            inlets.Add(aboveManifoldInlet);
-
-            foreach (var position in inletPositions.Skip(1))
-            {
-                var newInlet = tree.AddInlet(position, flowPerInlet, lastNode);
-                var newOutgoing = tree.GetOutgoingConnection(newInlet);
-                tree.ConnectVertically(newOutgoing, 0);
-                inlets.Add(newInlet);
+                throw new ArgumentOutOfRangeException(nameof(shapeType), "Use Circle, Rectangle, or Oval for this example.");
             }
 
-            var outlet = tree.SetOutletPosition(new Vector3(-1, 1, 0));
-            var conn = tree.GetIncomingConnections(outlet).First();
-            tree.ConnectVertically(conn, 0.5, true);
+            var tree = new Tree(new[] { $"MEP-{shapeType}" });
+            tree.SetOutletPosition(new Vector3(16, 0, 0));
+            var mainInlet = tree.AddInlet(new Vector3(0, 2, 0), 1.0);
+            var mainConnection = tree.GetOutgoingConnection(mainInlet);
 
-            foreach (var c in tree.Connections)
+            var elbowNode = tree.SplitConnectionThroughPoint(mainConnection, new Vector3(4, 2, 0), out var elbowConnections);
+            var teeNode = tree.SplitConnectionThroughPoint(elbowConnections[1], new Vector3(4, 0, 0), out var teeConnections);
+            var reducerNode = tree.SplitConnectionThroughPoint(teeConnections[1], new Vector3(7, 0, 0), out var reducerConnections);
+            var crossNode = tree.SplitConnectionThroughPoint(reducerConnections[1], new Vector3(10, 0, 0), out var crossConnections);
+            Node transitionNode = null;
+            if (shapeType != ShapeType.Circle)
             {
-                c.Diameter = 0.1;
+                transitionNode = tree.SplitConnectionThroughPoint(crossConnections[1], new Vector3(13, 0, 0), out _);
+            }
+
+            var teeBranch = tree.AddInlet(new Vector3(4, -3, 0), 0.5, teeNode);
+            var crossTopBranch = tree.AddInlet(new Vector3(10, 3, 0), 0.5, crossNode);
+            var crossBottomBranch = tree.AddInlet(new Vector3(10, -3, 0), 0.5, crossNode);
+
+            var largeWidth = shapeType == ShapeType.Circle ? 0.4 : 0.6;
+            var largeHeight = shapeType == ShapeType.Circle ? largeWidth : 0.3;
+            var smallWidth = shapeType == ShapeType.Circle ? 0.25 : 0.4;
+            var smallHeight = shapeType == ShapeType.Circle ? smallWidth : 0.2;
+            const double roundDiameter = 0.3;
+
+            SetShape(tree.GetOutgoingConnection(mainInlet), largeWidth, largeHeight, shapeType);
+            SetShape(tree.GetOutgoingConnection(elbowNode), largeWidth, largeHeight, shapeType);
+            SetShape(tree.GetOutgoingConnection(teeBranch), largeWidth, largeHeight, shapeType);
+            SetShape(tree.GetOutgoingConnection(teeNode), largeWidth, largeHeight, shapeType);
+            SetShape(tree.GetOutgoingConnection(reducerNode), smallWidth, smallHeight, shapeType);
+            SetShape(tree.GetOutgoingConnection(crossTopBranch), smallWidth, smallHeight, shapeType);
+            SetShape(tree.GetOutgoingConnection(crossBottomBranch), smallWidth, smallHeight, shapeType);
+            SetShape(tree.GetOutgoingConnection(crossNode), smallWidth, smallHeight, shapeType);
+            if (transitionNode != null)
+            {
+                SetShape(tree.GetOutgoingConnection(transitionNode), roundDiameter, roundDiameter, ShapeType.Circle);
             }
 
             tree.Material = ClearPipe;
-            return tree;
+            var routing = new FittingTreeRouting(tree)
+            {
+                PipeSizeShouldMatchConnection = true
+            };
+            var fittings = routing.BuildFittingTree(out var errors);
+            if (errors.Count > 0)
+            {
+                throw new InvalidOperationException(string.Join(Environment.NewLine, errors));
+            }
+
+            var reducers = fittings.FittingsOfType<Elements.Fittings.Reducer>().ToList();
+            var hasExpectedTransitions = shapeType == ShapeType.Circle
+                ? reducers.Count >= 1 && reducers.All(r => r.Start.ShapeType == ShapeType.Circle && r.End.ShapeType == ShapeType.Circle)
+                : reducers.Count >= 2 && reducers.Any(r => r.Start.ShapeType != r.End.ShapeType);
+            if (!fittings.StraightSegments.Any() ||
+                !fittings.FittingsOfType<Elements.Fittings.Elbow>().Any() ||
+                !fittings.FittingsOfType<Wye>().Any() ||
+                !fittings.FittingsOfType<Elements.Fittings.Cross>().Any() ||
+                !hasExpectedTransitions)
+            {
+                throw new InvalidOperationException("The example did not generate all expected fitting types.");
+            }
+
+            TestUtils.SaveToGltf($"{nameof(FittingCatalogTreeWithCross)}-{shapeType}", fittings);
+            return fittings;
         }
 
-
-        private static FittingCatalog LoadFittingCatalog()
+        private static void SetShape(Connection connection, double width, double height, ShapeType shapeType)
         {
-            return new FittingCatalog()
-            {
-                Elbows = ElbowPart.LoadFromCSV("test part catalogs/elbowParts.csv", Units.LengthUnit.Inch),
-                Reducers = ReducerPart.LoadFromCSV("test part catalogs/reducerParts.csv", Units.LengthUnit.Inch),
-                Tees = TeePart.LoadFromCSV("test part catalogs/teeParts.csv", Units.LengthUnit.Inch),
-                Crosses = CrossPart.LoadFromCSV("test part catalogs/crossParts.csv", Units.LengthUnit.Inch)
-            };
+            connection.SetShape(width, height, shapeType);
         }
 
 
