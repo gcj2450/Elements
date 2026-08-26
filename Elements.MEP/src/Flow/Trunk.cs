@@ -1,4 +1,4 @@
-namespace Elements.Flow
+﻿namespace Elements.Flow
 {
     public partial class Trunk
     {

@@ -40,6 +40,14 @@ namespace Elements.Fittings
         {
         }
 
+        /// <summary>
+        /// 矩形或者椭圆形端口设置构造方法
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="direction"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="shapeType"></param>
         public Port(Vector3 position, Vector3 direction, double width, double height, ShapeType shapeType = ShapeType.Circle)
         {
             this.Position = position;

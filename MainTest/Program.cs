@@ -21,7 +21,8 @@ namespace MainTest
             //PipeWithTwoReducers(false);
             //MakeElbow();
             //MakeCross();
-            MakeWye();
+            //MakeWye();
+            MakeReducer();
             //FittingCatalogTreeWithCross();
         }
 
@@ -227,13 +228,16 @@ namespace MainTest
             Port.ShowArrows = true;
             var wyeSettings = new WyeSettings
             {
-                ShapeType = ShapeType.Rectangle,
+                ShapeType = ShapeType.Oval,
                 Width = 0.4,
                 Height = 0.2,
                 MainWidth = 0.4,
                 MainHeight = 0.2,
                 BranchWidth = 0.2,
-                BranchHeight = 0.1
+                BranchHeight = 0.1,
+                TrunkDistance = 0.2,
+                MainDistance = 0.2,
+                BranchDistance = 0.3
             };
 
             var wye = new Wye(connectionPoint,

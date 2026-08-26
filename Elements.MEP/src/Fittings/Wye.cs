@@ -252,7 +252,8 @@ namespace Elements.Fittings
                 throw new ArgumentOutOfRangeException($"That branch directions provided make an angle of {branchAngle} which is not allowed for this wyes settings");
             }
 
-            var branchEnd = position + branchDirection.Unitized() * wyes.BranchDistance;
+            var branchDistance = GetBranchDistance(wyes, branchAngle);
+            var branchEnd = position + branchDirection.Unitized() * branchDistance;
 
             this.SideBranch = CreatePort(branchEnd,
                                          branchDirection,
@@ -263,6 +264,29 @@ namespace Elements.Fittings
 
             AngleTolerance = wyes.AngleTolerance;
             PositionTolerance = wyes.PortsDistanceTolerance;
+        }
+
+        private static double GetBranchDistance(WyeSettings settings, double branchAngle)
+        {
+            if (settings.ShapeType == ShapeType.Circle)
+            {
+                return settings.BranchDistance;
+            }
+
+            var sine = Math.Sin(Units.DegreesToRadians(branchAngle));
+            if (Math.Abs(sine) < Vector3.EPSILON)
+            {
+                return settings.BranchDistance;
+            }
+
+            // The branch port face must clear the main profile. Rectangle and
+            // oval profiles use their height in the Wye plane; keep one branch
+            // height exposed beyond the intersection to form a visible head.
+            var mainHalfHeight = Math.Max(settings.MainHeight, Vector3.EPSILON) / 2.0;
+            var branchHeight = Math.Max(settings.BranchHeight, Vector3.EPSILON);
+            var branchHalfHeightProjection = branchHeight / 2.0 * Math.Abs(Math.Cos(Units.DegreesToRadians(branchAngle)));
+            var clearanceDistance = (mainHalfHeight + branchHalfHeightProjection) / Math.Abs(sine);
+            return Math.Max(settings.BranchDistance, clearanceDistance + branchHeight);
         }
 
         private static Port CreatePort(Vector3 position,

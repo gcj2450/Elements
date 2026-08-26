@@ -142,6 +142,37 @@ namespace Elements.MEP.Tests
             Assert.Contains(sweeps, sweep => Math.Abs(sweep.ProfileRotation) > 1.0);
         }
 
+        [Theory]
+        [InlineData(ShapeType.Rectangle)]
+        [InlineData(ShapeType.Oval)]
+        public void NonCircularWyeBranchPortClearsMainProfile(ShapeType shapeType)
+        {
+            var settings = new WyeSettings
+            {
+                ShapeType = shapeType,
+                Width = 0.4,
+                Height = 0.2,
+                MainWidth = 0.4,
+                MainHeight = 0.2,
+                BranchWidth = 0.2,
+                BranchHeight = 0.1
+            };
+            var branchDirection = new Vector3(0, 1, 1).Unitized();
+            var wye = new Wye(Vector3.Origin,
+                              Vector3.YAxis,
+                              branchDirection,
+                              settings,
+                              FittingTreeRouting.DefaultFittingMaterial);
+
+            var branchDistance = wye.SideBranch.Position.DistanceTo(Vector3.Origin);
+            var branchAngle = branchDirection.AngleTo(Vector3.YAxis);
+            var perpendicularDistance = branchDistance * Math.Sin(Units.DegreesToRadians(branchAngle));
+            var branchProjection = settings.BranchHeight / 2.0 * Math.Abs(Math.Cos(Units.DegreesToRadians(branchAngle)));
+
+            Assert.True(branchDistance > settings.BranchDistance);
+            Assert.True(perpendicularDistance - branchProjection > settings.MainHeight / 2.0);
+        }
+
         [Fact]
         public void MakeCross()
         {
