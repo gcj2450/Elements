@@ -1,0 +1,3419 @@
+﻿{
+  "basePoint": [
+    0.0,
+    0.0
+  ],
+  "pipes": [
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D6",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "D7",
+      "Style": "矩形",
+      "StartThickness": 200.0,
+      "StartWidth": 630.0,
+      "EndThickness": 200.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        -2940.0,
+        13371.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        9433.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D7",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T8",
+      "EndConnectNumber": "D6",
+      "Style": "矩形",
+      "StartThickness": 200.0,
+      "StartWidth": 630.0,
+      "EndThickness": 200.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        -2940.0,
+        9233.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        9433.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D41",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V1",
+      "EndConnectNumber": "T8",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2255.0,
+        8932.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2375.0,
+        8932.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D33",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V1",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -1390.0,
+        8932.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2054.0,
+        8932.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D21",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T8",
+      "EndConnectNumber": "T9",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 630.0,
+      "EndThickness": 400.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        -2940.0,
+        8482.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        7433.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D42",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V0",
+      "EndConnectNumber": "T9",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2255.0,
+        7132.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2375.0,
+        7132.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D34",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V0",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -1390.0,
+        7132.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2054.0,
+        7132.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D1",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T9",
+      "EndConnectNumber": "R0",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 630.0,
+      "EndThickness": 400.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        -2940.0,
+        6682.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        1033.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D36",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V2",
+      "EndConnectNumber": "T5",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2255.0,
+        532.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2290.0,
+        532.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D35",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V2",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -1390.0,
+        532.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2054.0,
+        532.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D22",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T5",
+      "EndConnectNumber": "T6",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 800.0,
+      "EndThickness": 500.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        -2940.0,
+        82.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        -967.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D37",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V3",
+      "EndConnectNumber": "T6",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2196.0,
+        -1268.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2290.0,
+        -1268.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D40",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V3",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -1390.0,
+        -1268.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -1996.0,
+        -1268.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D0",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T6",
+      "EndConnectNumber": "T1",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 800.0,
+      "EndThickness": 500.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        -2940.0,
+        -1718.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        -9167.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D50",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T11",
+      "EndConnectNumber": "R6",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        -4359.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4030.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D12",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T13",
+      "EndConnectNumber": "T11",
+      "Style": "矩形",
+      "StartThickness": 200.0,
+      "StartWidth": 250.0,
+      "EndThickness": 200.0,
+      "EndWidth": 250.0,
+      "StartPosition": [
+        -4659.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4659.0,
+        -9782.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D13",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "E1",
+      "EndConnectNumber": "R8",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -4659.0,
+        -5618.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4659.0,
+        -7007.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D11",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "E1",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -7165.0,
+        -5368.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4909.0,
+        -5368.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D46",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T13",
+      "EndConnectNumber": "V5",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -4384.0,
+        -7408.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4002.0,
+        -7408.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D44",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V5",
+      "EndConnectNumber": "",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -3802.0,
+        -7408.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -3391.0,
+        -7408.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D52",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V4",
+      "EndConnectNumber": "T11",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        -5129.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4884.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D24",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V4",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        -6328.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -5329.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D26",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T1",
+      "EndConnectNumber": "V6",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        -2090.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -1477.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D15",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V6",
+      "EndConnectNumber": "T0",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        -1276.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -1018.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D20",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "R7",
+      "EndConnectNumber": "T0",
+      "Style": "矩形",
+      "StartThickness": 630.0,
+      "StartWidth": 1250.0,
+      "EndThickness": 630.0,
+      "EndWidth": 1250.0,
+      "StartPosition": [
+        157.0,
+        -11719.0,
+        4300.0
+      ],
+      "EndPosition": [
+        157.0,
+        -11168.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D45",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V12",
+      "EndConnectNumber": "R7",
+      "Style": "矩形",
+      "StartThickness": 800.0,
+      "StartWidth": 800.0,
+      "EndThickness": 800.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        157.0,
+        -12355.0,
+        4300.0
+      ],
+      "EndPosition": [
+        157.0,
+        -12109.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D51",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "E3",
+      "EndConnectNumber": "V12",
+      "Style": "矩形",
+      "StartThickness": 800.0,
+      "StartWidth": 800.0,
+      "EndThickness": 800.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        157.0,
+        -12802.0,
+        4300.0
+      ],
+      "EndPosition": [
+        157.0,
+        -12556.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D57",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "E3",
+      "EndConnectNumber": "",
+      "Style": "矩形",
+      "StartThickness": 800.0,
+      "StartWidth": 800.0,
+      "EndThickness": 800.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        157.0,
+        -13652.0,
+        0.0
+      ],
+      "EndPosition": [
+        157.0,
+        -13652.0,
+        7300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D14",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T0",
+      "EndConnectNumber": "E2",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        1332.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        1610.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D48",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "E2",
+      "EndConnectNumber": "V7",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        -9067.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -8688.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D47",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V7",
+      "EndConnectNumber": "C0",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        -8488.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -8108.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D55",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "C0",
+      "EndConnectNumber": "V8",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        1910.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        1736.0,
+        -7658.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D19",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V8",
+      "EndConnectNumber": "",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        1536.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        465.0,
+        -7658.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D53",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V9",
+      "EndConnectNumber": "C0",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3593.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3410.0,
+        -7658.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D9",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V9",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        7336.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3794.0,
+        -7658.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D2",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "C0",
+      "EndConnectNumber": "T3",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        -7358.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -1718.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D29",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V11",
+      "EndConnectNumber": "T3",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3562.0,
+        -1268.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3410.0,
+        -1268.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D32",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V11",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        4460.0,
+        -1268.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3763.0,
+        -1268.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D23",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T2",
+      "EndConnectNumber": "T3",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        82.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -967.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D8",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "R2",
+      "EndConnectNumber": "T4",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 800.0,
+      "EndThickness": 400.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        2660.0,
+        1033.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        4633.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D30",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V13",
+      "EndConnectNumber": "T4",
+      "Style": "矩形",
+      "StartThickness": 320.0,
+      "StartWidth": 500.0,
+      "EndThickness": 320.0,
+      "EndWidth": 500.0,
+      "StartPosition": [
+        3758.0,
+        5183.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3360.0,
+        5183.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D3",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "E0",
+      "EndConnectNumber": "V13",
+      "Style": "矩形",
+      "StartThickness": 320.0,
+      "StartWidth": 500.0,
+      "EndThickness": 320.0,
+      "EndWidth": 500.0,
+      "StartPosition": [
+        8834.0,
+        5183.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3959.0,
+        5183.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D5",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "E0",
+      "Style": "矩形",
+      "StartThickness": 320.0,
+      "StartWidth": 500.0,
+      "EndThickness": 320.0,
+      "EndWidth": 500.0,
+      "StartPosition": [
+        9385.0,
+        9782.0,
+        4300.0
+      ],
+      "EndPosition": [
+        9385.0,
+        5733.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D16",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T7",
+      "EndConnectNumber": "T4",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 800.0,
+      "EndThickness": 400.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        2660.0,
+        6682.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        5533.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D27",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T10",
+      "EndConnectNumber": "R4",
+      "Style": "矩形",
+      "StartThickness": 320.0,
+      "StartWidth": 630.0,
+      "EndThickness": 320.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        2660.0,
+        8482.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        7633.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D4",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T12",
+      "EndConnectNumber": "R1",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        2660.0,
+        13682.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        9501.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D39",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D56",
+      "EndConnectNumber": "R5",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        2660.0,
+        15035.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        14408.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D56",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D39",
+      "EndConnectNumber": "",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        2660.0,
+        15035.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        15245.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D49",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V16",
+      "EndConnectNumber": "T12",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 250.0,
+      "EndThickness": 250.0,
+      "EndWidth": 250.0,
+      "StartPosition": [
+        3177.0,
+        13982.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2995.0,
+        13982.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D54",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T14",
+      "EndConnectNumber": "V16",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 250.0,
+      "EndThickness": 250.0,
+      "EndWidth": 250.0,
+      "StartPosition": [
+        3509.0,
+        13982.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3327.0,
+        13982.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D10",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "R3",
+      "EndConnectNumber": "",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        4160.0,
+        13982.0,
+        4300.0
+      ],
+      "EndPosition": [
+        7399.0,
+        13982.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D25",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T14",
+      "EndConnectNumber": "",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        3760.0,
+        14258.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3760.0,
+        15123.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D43",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V15",
+      "EndConnectNumber": "T10",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3468.0,
+        8932.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3225.0,
+        8932.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D17",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V15",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        4810.0,
+        8932.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3669.0,
+        8932.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D38",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V14",
+      "EndConnectNumber": "T7",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3528.0,
+        7132.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3310.0,
+        7132.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D18",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V14",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        4810.0,
+        7132.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3729.0,
+        7132.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D28",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "V10",
+      "EndConnectNumber": "T2",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3562.0,
+        532.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3410.0,
+        532.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "D31",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "V10",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        4460.0,
+        532.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3763.0,
+        532.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    }
+  ],
+  "elbows": [
+    {
+      "CornerPosition": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 90.0,
+      "Curvature": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "E1",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D13",
+      "EndConnectNumber": "D11",
+      "Style": "矩形",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -4659.0,
+        -5618.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4909.0,
+        -5368.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "CornerPosition": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 90.0,
+      "Curvature": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "E3",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D51",
+      "EndConnectNumber": "D57",
+      "Style": "矩形",
+      "StartThickness": 800.0,
+      "StartWidth": 800.0,
+      "EndThickness": 800.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        157.0,
+        -12802.0,
+        4300.0
+      ],
+      "EndPosition": [
+        157.0,
+        -13652.0,
+        5500.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "CornerPosition": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 90.0,
+      "Curvature": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "E2",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D14",
+      "EndConnectNumber": "D48",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        1610.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -9068.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "CornerPosition": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 90.0,
+      "Curvature": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "E0",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D3",
+      "EndConnectNumber": "D5",
+      "Style": "矩形",
+      "StartThickness": 320.0,
+      "StartWidth": 500.0,
+      "EndThickness": 320.0,
+      "EndWidth": 500.0,
+      "StartPosition": [
+        8835.0,
+        5183.0,
+        4300.0
+      ],
+      "EndPosition": [
+        9385.0,
+        5733.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    }
+  ],
+  "tees": [
+    {
+      "BranchPosition": [
+        -2375.0,
+        8932.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D41",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T8",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D21",
+      "EndConnectNumber": "D7",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 630.0,
+      "EndThickness": 200.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        -2940.0,
+        8482.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        9232.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        -2375.0,
+        7132.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D42",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T9",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D1",
+      "EndConnectNumber": "D21",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 630.0,
+      "EndThickness": 400.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        -2940.0,
+        6682.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        7432.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        -2290.0,
+        532.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D36",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T5",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D22",
+      "EndConnectNumber": "R0",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 800.0,
+      "EndThickness": 500.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        -2940.0,
+        82.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        832.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        -2290.0,
+        -1268.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D37",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T6",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D0",
+      "EndConnectNumber": "D22",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 800.0,
+      "EndThickness": 500.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        -2940.0,
+        -1718.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        -968.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        -2940.0,
+        -9168.0,
+        4300.0
+      ],
+      "BranchThickness": 500.0,
+      "BranchWidth": 800.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D0",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T1",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D26",
+      "EndConnectNumber": "R6",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        -2090.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -3440.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        -4659.0,
+        -9783.0,
+        4300.0
+      ],
+      "BranchThickness": 200.0,
+      "BranchWidth": 250.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D12",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T11",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D50",
+      "EndConnectNumber": "D52",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        -4359.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4884.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        -4384.0,
+        -7408.0,
+        4300.0
+      ],
+      "BranchThickness": 160.0,
+      "BranchWidth": 200.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D46",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T13",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D12",
+      "EndConnectNumber": "R8",
+      "Style": "矩形",
+      "StartThickness": 200.0,
+      "StartWidth": 250.0,
+      "EndThickness": 200.0,
+      "EndWidth": 250.0,
+      "StartPosition": [
+        -4659.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4659.0,
+        -7208.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        157.0,
+        -11168.0,
+        4300.0
+      ],
+      "BranchThickness": 630.0,
+      "BranchWidth": 1250.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D20",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T0",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D15",
+      "EndConnectNumber": "D14",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        -1018.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        1332.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        3410.0,
+        -1268.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D29",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T3",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D2",
+      "EndConnectNumber": "D23",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        -1718.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -968.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        3410.0,
+        532.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D28",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T2",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D23",
+      "EndConnectNumber": "R2",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        82.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        832.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        3360.0,
+        5183.0,
+        4300.0
+      ],
+      "BranchThickness": 400.0,
+      "BranchWidth": 500.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D30",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T4",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D8",
+      "EndConnectNumber": "D16",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 800.0,
+      "EndThickness": 400.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        2660.0,
+        4633.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        5533.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        3310.0,
+        7132.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D38",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T7",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D16",
+      "EndConnectNumber": "R4",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 800.0,
+      "EndThickness": 400.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        2660.0,
+        6682.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        7432.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        3225.0,
+        8932.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 400.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D43",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T10",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D27",
+      "EndConnectNumber": "R1",
+      "Style": "矩形",
+      "StartThickness": 320.0,
+      "StartWidth": 630.0,
+      "EndThickness": 320.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        2660.0,
+        8482.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        9232.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        2995.0,
+        13982.0,
+        4300.0
+      ],
+      "BranchThickness": 250.0,
+      "BranchWidth": 250.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D49",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T12",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D4",
+      "EndConnectNumber": "R5",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        2660.0,
+        13682.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        14207.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "BranchPosition": [
+        3760.0,
+        14257.0,
+        4300.0
+      ],
+      "BranchThickness": 160.0,
+      "BranchWidth": 200.0,
+      "Curvature": 0.0,
+      "BranchConnectNumber": "D25",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "T14",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "R3",
+      "EndConnectNumber": "D54",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 250.0,
+      "EndThickness": 250.0,
+      "EndWidth": 250.0,
+      "StartPosition": [
+        3960.0,
+        13982.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3510.0,
+        13982.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    }
+  ],
+  "crosses": [
+    {
+      "Branch1Position": [
+        3410.0,
+        -7658.0,
+        4300.0
+      ],
+      "Branch2Position": [
+        1910.0,
+        -7658.0,
+        4300.0
+      ],
+      "Branch1Thickness": 250.0,
+      "Branch2Thickness": 250.0,
+      "Branch1Width": 400.0,
+      "Branch2Width": 400.0,
+      "Branch1ConnectNumber": "D53",
+      "Branch2ConnectNumber": "D55",
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "C0",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D47",
+      "EndConnectNumber": "D2",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        -8108.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -7358.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    }
+  ],
+  "reducers": [
+    {
+      "Length": 200.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R0",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T5",
+      "EndConnectNumber": "D1",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 800.0,
+      "EndThickness": 400.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        -2940.0,
+        833.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.0,
+        1033.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 268.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R1",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T10",
+      "EndConnectNumber": "D4",
+      "Style": "矩形",
+      "StartThickness": 320.0,
+      "StartWidth": 630.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        2660.0,
+        9233.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        9501.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 200.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R2",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T2",
+      "EndConnectNumber": "D8",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 400.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        2660.0,
+        833.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        1033.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 200.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R3",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T14",
+      "EndConnectNumber": "D10",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 250.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        3960.0,
+        13982.0,
+        4300.0
+      ],
+      "EndPosition": [
+        4160.0,
+        13982.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 200.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R4",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T7",
+      "EndConnectNumber": "D27",
+      "Style": "矩形",
+      "StartThickness": 400.0,
+      "StartWidth": 800.0,
+      "EndThickness": 320.0,
+      "EndWidth": 630.0,
+      "StartPosition": [
+        2660.0,
+        7433.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        7633.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 200.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R5",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T12",
+      "EndConnectNumber": "D39",
+      "Style": "矩形",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        2660.0,
+        14208.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        14408.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 588.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R6",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T1",
+      "EndConnectNumber": "D50",
+      "Style": "矩形",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        -3441.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4029.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 390.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R7",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "D20",
+      "EndConnectNumber": "D45",
+      "Style": "矩形",
+      "StartThickness": 630.0,
+      "StartWidth": 1250.0,
+      "EndThickness": 800.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        157.0,
+        -11719.0,
+        4300.0
+      ],
+      "EndPosition": [
+        157.0,
+        -12109.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Length": 200.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "R8",
+      "LayerName": "05-排风-排风管",
+      "StartConnectNumber": "T13",
+      "EndConnectNumber": "D13",
+      "Style": "矩形",
+      "StartThickness": 200.0,
+      "StartWidth": 250.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -4659.0,
+        -7208.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -4659.0,
+        -7008.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    }
+  ],
+  "offsets": [],
+  "airTeminals": [
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A0",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 200.0,
+      "EndThickness": 50.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        7210.7,
+        -7657.7,
+        4300.0
+      ],
+      "EndPosition": [
+        7210.7,
+        -7657.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A1",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 250.0,
+      "EndThickness": 50.0,
+      "EndWidth": 250.0,
+      "StartPosition": [
+        4919.6,
+        -7657.7,
+        4300.0
+      ],
+      "EndPosition": [
+        4919.6,
+        -7657.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A2",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 200.0,
+      "EndThickness": 50.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        630.7,
+        -7657.7,
+        4300.0
+      ],
+      "EndPosition": [
+        630.7,
+        -7657.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A3",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 200.0,
+      "EndThickness": 50.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -3539.3,
+        -7407.7,
+        4300.0
+      ],
+      "EndPosition": [
+        -3539.3,
+        -7407.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A4",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 200.0,
+      "EndThickness": 50.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -6202.9,
+        -10117.7,
+        4300.0
+      ],
+      "EndPosition": [
+        -6202.9,
+        -10117.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A5",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 200.0,
+      "EndThickness": 50.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -7040.4,
+        -5367.7,
+        4300.0
+      ],
+      "EndPosition": [
+        -7040.4,
+        -5367.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 90.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A6",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        9384.6,
+        9432.3,
+        4300.0
+      ],
+      "EndPosition": [
+        9384.6,
+        9432.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A7",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        -2940.4,
+        13182.3,
+        4300.0
+      ],
+      "EndPosition": [
+        -2940.4,
+        13182.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A8",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        4209.6,
+        -1267.7,
+        4300.0
+      ],
+      "EndPosition": [
+        4209.6,
+        -1267.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A9",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        -1640.4,
+        -1267.7,
+        4300.0
+      ],
+      "EndPosition": [
+        -1640.4,
+        -1267.7,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A10",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        4209.6,
+        532.3,
+        4300.0
+      ],
+      "EndPosition": [
+        4209.6,
+        532.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A11",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        -1640.4,
+        532.3,
+        4300.0
+      ],
+      "EndPosition": [
+        -1640.4,
+        532.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A12",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        4559.6,
+        7132.3,
+        4300.0
+      ],
+      "EndPosition": [
+        4559.6,
+        7132.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A13",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        -1640.4,
+        7132.3,
+        4300.0
+      ],
+      "EndPosition": [
+        -1640.4,
+        7132.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A14",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        4559.6,
+        8932.3,
+        4300.0
+      ],
+      "EndPosition": [
+        4559.6,
+        8932.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A15",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 300.0,
+      "EndThickness": 50.0,
+      "EndWidth": 300.0,
+      "StartPosition": [
+        -1640.4,
+        8932.3,
+        4300.0
+      ],
+      "EndPosition": [
+        -1640.4,
+        8932.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A16",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 200.0,
+      "EndThickness": 50.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        7209.6,
+        13982.3,
+        4300.0
+      ],
+      "EndPosition": [
+        7209.6,
+        13982.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "风口",
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 90.0,
+      "Airflow": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "A17",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "",
+      "EndConnectNumber": "",
+      "Style": "百叶风口-1",
+      "StartThickness": 50.0,
+      "StartWidth": 200.0,
+      "EndThickness": 50.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        3759.6,
+        14982.3,
+        4300.0
+      ],
+      "EndPosition": [
+        3759.6,
+        14982.3,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    }
+  ],
+  "valves": [
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V0",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D42",
+      "EndConnectNumber": "D34",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2154.0,
+        7132.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2154.0,
+        7132.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V1",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D41",
+      "EndConnectNumber": "D33",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2154.0,
+        8932.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2154.0,
+        8932.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V2",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D36",
+      "EndConnectNumber": "D35",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2154.0,
+        532.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2154.0,
+        532.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V3",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D37",
+      "EndConnectNumber": "D40",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        -2096.0,
+        -1268.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -2096.0,
+        -1268.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V4",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D24",
+      "EndConnectNumber": "D52",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 320.0,
+      "EndThickness": 250.0,
+      "EndWidth": 320.0,
+      "StartPosition": [
+        -5229.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -5229.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V5",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D46",
+      "EndConnectNumber": "D44",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 160.0,
+      "StartWidth": 200.0,
+      "EndThickness": 160.0,
+      "EndWidth": 200.0,
+      "StartPosition": [
+        -3902.0,
+        -7408.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -3902.0,
+        -7408.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V6",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D26",
+      "EndConnectNumber": "D15",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        -1377.0,
+        -10118.0,
+        4300.0
+      ],
+      "EndPosition": [
+        -1377.0,
+        -10118.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 270.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V7",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D47",
+      "EndConnectNumber": "D48",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 500.0,
+      "StartWidth": 1000.0,
+      "EndThickness": 500.0,
+      "EndWidth": 1000.0,
+      "StartPosition": [
+        2660.0,
+        -8588.0,
+        4300.0
+      ],
+      "EndPosition": [
+        2660.0,
+        -8588.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V8",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D19",
+      "EndConnectNumber": "D55",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        1636.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        1636.0,
+        -7658.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V9",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D53",
+      "EndConnectNumber": "D9",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3694.0,
+        -7658.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3694.0,
+        -7658.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V10",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D28",
+      "EndConnectNumber": "D31",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3663.0,
+        532.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3663.0,
+        532.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V11",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D29",
+      "EndConnectNumber": "D32",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3663.0,
+        -1268.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3663.0,
+        -1268.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "防火阀-3",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 270.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V12",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D45",
+      "EndConnectNumber": "D51",
+      "Style": "防火阀-3",
+      "StartThickness": 800.0,
+      "StartWidth": 800.0,
+      "EndThickness": 800.0,
+      "EndWidth": 800.0,
+      "StartPosition": [
+        157.0,
+        -12456.0,
+        4300.0
+      ],
+      "EndPosition": [
+        157.0,
+        -12456.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V13",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D30",
+      "EndConnectNumber": "D3",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 320.0,
+      "StartWidth": 500.0,
+      "EndThickness": 320.0,
+      "EndWidth": 500.0,
+      "StartPosition": [
+        3859.0,
+        5183.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3859.0,
+        5183.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V14",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D38",
+      "EndConnectNumber": "D18",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3629.0,
+        7132.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3629.0,
+        7132.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V15",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D43",
+      "EndConnectNumber": "D17",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 400.0,
+      "EndThickness": 250.0,
+      "EndWidth": 400.0,
+      "StartPosition": [
+        3569.0,
+        8932.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3569.0,
+        8932.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    },
+    {
+      "Name": "手动对开多叶调节阀-1",
+      "Diameter": 0.0,
+      "Location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Angle": 0.0,
+      "SubSystem": "1_1",
+      "System": "05-排风",
+      "Number": "V16",
+      "LayerName": "G-Eqpm-Std",
+      "StartConnectNumber": "D49",
+      "EndConnectNumber": "D54",
+      "Style": "手动对开多叶调节阀-1",
+      "StartThickness": 250.0,
+      "StartWidth": 250.0,
+      "EndThickness": 250.0,
+      "EndWidth": 250.0,
+      "StartPosition": [
+        3252.0,
+        13982.0,
+        4300.0
+      ],
+      "EndPosition": [
+        3252.0,
+        13982.0,
+        4300.0
+      ],
+      "IsWholeFloorVerPipe": false
+    }
+  ],
+  "blowers": [],
+  "equps": []
+}

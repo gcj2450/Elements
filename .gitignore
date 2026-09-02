@@ -342,3 +342,4 @@ Elements/test/*.gltf
 !Elements/test/models/**/*.glb
 
 *.dxf
+/0

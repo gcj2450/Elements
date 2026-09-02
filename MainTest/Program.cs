@@ -18,6 +18,17 @@ namespace MainTest
     {
         static void Main(string[] args)
         {
+
+            var gltfPath = RevitDuctJsonExample.Run("D:/GitProjects/Elements/MainTest/Duct.json", 0.001);
+            Console.WriteLine(gltfPath);
+
+            //if (args.Length > 0)
+            //{
+            //    var gltfPath = RevitDuctJsonExample.Run(args[0]);
+            //    Console.WriteLine(gltfPath);
+            //    return;
+            //}
+
             //var shapeType = ShapeType.Oval;
             //    //shapeType=  args.Length > 0 && Enum.TryParse<ShapeType>(args[0], true, out var parsedShapeType)
             //    //? parsedShapeType
@@ -26,9 +37,9 @@ namespace MainTest
 
             //TestRouting();
 
-            MakeElbow();
-            MakeCross();
-            MakeWye();
+            //MakeElbow();
+            //MakeCross();
+            //MakeWye();
         }
 
         public static void TestRouting()
@@ -126,11 +137,11 @@ namespace MainTest
 
                 // The bottom chord
                 var bottomChord = new Line(start, end);
-                var bottomChordBeam = new Beam(bottomChord, p,tr, m);
+                var bottomChordBeam = new Beam(bottomChord, p, tr, m);
                 model.AddElement(bottomChordBeam);
 
                 var topChord = new Line(start + new Vector3(0, 0, 5), end + new Vector3(0, 0, 5));
-                var topChordBeam = new Beam(topChord, p,tr, m);
+                var topChordBeam = new Beam(topChord, p, tr, m);
                 model.AddElement(topChordBeam);
 
                 Vector3 last = default(Vector3);
@@ -145,7 +156,7 @@ namespace MainTest
                     if (j > 0.0)
                     {
                         var braceLine = new Line(top, last);
-                        var braceBeam = new Beam(braceLine, p,tr, m);
+                        var braceBeam = new Beam(braceLine, p, tr, m);
                         model.AddElement(braceBeam);
                     }
                     last = pt;
@@ -180,10 +191,10 @@ namespace MainTest
             var endDirection = new Vector3(1, 0, 0);
             var otherDirection = new Vector3(0, -1, 1);
 
-            var elbow = new Elements.Fittings.Elbow(position, endDirection, otherDirection, 0.2, 0.2,0.1,ShapeType.Rectangle, FittingTreeRouting.DefaultFittingMaterial);
+            var elbow = new Elements.Fittings.Elbow(position, endDirection, otherDirection, 0.2, 0.2, 0.1, ShapeType.Rectangle, FittingTreeRouting.DefaultFittingMaterial);
             var startReferencePipe = new StraightSegment(0, elbow.Start, new Port(elbow.Start.Position + elbow.Start.Direction,
                                                                                    elbow.Start.Direction.Negate(),
-                                                                                   elbow.Start.Width,elbow.Start.Height,ShapeType.Rectangle));
+                                                                                   elbow.Start.Width, elbow.Start.Height, ShapeType.Rectangle));
             var endReferencePipe = new StraightSegment(0, elbow.End, new Port(elbow.End.Position + elbow.End.Direction,
                                                                                elbow.End.Direction.Negate(),
                                                                                elbow.End.Width, elbow.End.Height, ShapeType.Rectangle));
@@ -191,13 +202,13 @@ namespace MainTest
             position = (2, 2, 2);
             otherDirection = (0, 1, 0);
 
-            var elbow2 = new Elements.Fittings.Elbow(position, endDirection, otherDirection, 0.2, 0.2,0.1,ShapeType.Rectangle, FittingTreeRouting.DefaultFittingMaterial);
+            var elbow2 = new Elements.Fittings.Elbow(position, endDirection, otherDirection, 0.2, 0.2, 0.1, ShapeType.Rectangle, FittingTreeRouting.DefaultFittingMaterial);
             var startReferencePipe2 = new StraightSegment(0, elbow2.Start, new Port(elbow2.Start.Position + elbow2.Start.Direction,
                                                                                      elbow2.Start.Direction.Negate(),
-                                                                                     elbow2.Start.Width,elbow2.Start.Height,ShapeType.Rectangle));
+                                                                                     elbow2.Start.Width, elbow2.Start.Height, ShapeType.Rectangle));
             var endReferencePipe2 = new StraightSegment(0, elbow2.End, new Port(elbow2.End.Position + elbow2.End.Direction,
                                                                           elbow2.End.Direction.Negate(),
-                                                                          elbow2.End.Width,elbow2.End.Height,ShapeType.Rectangle));
+                                                                          elbow2.End.Width, elbow2.End.Height, ShapeType.Rectangle));
 
             TestUtils.SaveToGltf(nameof(MakeElbow), new Element[] { elbow, startReferencePipe, endReferencePipe, elbow2, startReferencePipe2, endReferencePipe2 });
         }
@@ -276,7 +287,7 @@ namespace MainTest
             TestUtils.SaveToGltf(nameof(MakeWye), new Element[] { pipe1, pipe2, pipe3, wye });
         }
 
-        
+
         public static void MakeCross()
         {
             var cs = new CrossSettings();
@@ -294,7 +305,7 @@ namespace MainTest
             model.ToGlTF(TestUtils.GetTestPath() + "cross.gltf", false);
         }
 
-        
+
         public static void MakeReducer()
         {
             Port.ShowArrows = true;
