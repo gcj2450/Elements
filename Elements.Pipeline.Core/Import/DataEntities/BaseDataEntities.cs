@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //仅用于和Revit数据交互的数据结构
-namespace MainTest
+namespace Elements.Pipeline.Core.Import
 {
     public class Point3d
     {

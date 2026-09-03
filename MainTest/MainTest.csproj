@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Elements.Serialization.SVG\src\Elements.Serialization.SVG.csproj" />
     <ProjectReference Include="..\Elements.Serialization.SVG\test\Elements.Serialization.SVG.Tests.csproj" />
     <ProjectReference Include="..\Elements\src\Elements.csproj" />
+    <ProjectReference Include="..\Elements.Pipeline.Core\Elements.Pipeline.Core.csproj" />
   </ItemGroup>
 
 </Project>

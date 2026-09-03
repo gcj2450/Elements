@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#171a1f" />
+    <link rel="icon" href="data:," />
+    <title>Elements 管线场景</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">E</span>
+          <div>
+            <h1>Elements 管线场景</h1>
+            <p id="scene-name">未加载场景</p>
+          </div>
+        </div>
+        <div class="toolbar">
+          <span id="api-state" class="api-state"><span></span>服务连接中</span>
+          <button id="sample-button" class="button secondary" type="button">
+            <i data-lucide="database"></i><span>示例</span>
+          </button>
+          <button id="upload-button" class="button primary" type="button">
+            <i data-lucide="upload"></i><span>导入 JSON</span>
+          </button>
+          <button id="fit-button" class="icon-button" type="button" title="适合窗口" aria-label="适合窗口">
+            <i data-lucide="scan"></i>
+          </button>
+          <input id="file-input" type="file" accept="application/json,.json" hidden />
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="model-panel">
+          <section class="panel-heading">
+            <div>
+              <span class="eyebrow">场景构件</span>
+              <strong id="element-count">0</strong>
+            </div>
+            <div id="type-counts" class="type-counts"></div>
+          </section>
+          <label class="search-box">
+            <i data-lucide="search"></i>
+            <input id="search-input" type="search" placeholder="搜索编号、系统或类型" autocomplete="off" />
+          </label>
+          <div id="element-list" class="element-list" role="listbox" aria-label="场景构件"></div>
+        </aside>
+
+        <main id="viewport" class="viewport">
+          <div id="canvas-host" class="canvas-host"></div>
+          <div class="viewport-topline">
+            <span id="render-state">等待场景</span>
+            <span id="mesh-count">0 网格</span>
+          </div>
+          <div id="empty-state" class="empty-state">
+            <div class="empty-icon"><i data-lucide="box"></i></div>
+            <strong>暂无管线场景</strong>
+            <span>导入 JSON 或打开示例</span>
+          </div>
+          <div id="loading-state" class="loading-state" hidden>
+            <span class="spinner"></span>
+            <strong id="loading-label">正在生成管件</strong>
+          </div>
+        </main>
+
+        <aside class="properties-panel">
+          <section id="no-selection" class="no-selection">
+            <i data-lucide="mouse-pointer-2"></i>
+            <strong>未选择构件</strong>
+            <span>属性</span>
+          </section>
+          <section id="selection-details" hidden>
+            <header class="properties-heading">
+              <div>
+                <span id="selected-type" class="eyebrow">构件</span>
+                <h2 id="selected-number">-</h2>
+              </div>
+              <button id="clear-selection" class="icon-button" type="button" title="取消选择" aria-label="取消选择">
+                <i data-lucide="x"></i>
+              </button>
+            </header>
+            <dl id="summary-properties" class="property-list summary-properties"></dl>
+            <div class="section-label">原始 JSON 信息</div>
+            <dl id="source-properties" class="property-list source-properties"></dl>
+          </section>
+        </aside>
+      </div>
+
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

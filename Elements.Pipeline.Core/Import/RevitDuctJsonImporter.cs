@@ -1,20 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Elements;
 using Elements.Fittings;
 using Elements.Geometry;
-using Elements.MEP.Tests;
 using Elements.Serialization.glTF;
 
-namespace MainTest;
+namespace Elements.Pipeline.Core.Import;
 
 /// <summary>
 /// Converts MainTest.DataEntities.DuctDataForRevit data to Elements fittings.
 /// The Revit export stores coordinates and dimensions in millimeters.
 /// </summary>
-public static class RevitDuctJsonExample
+public static class RevitDuctJsonImporter
 {
     private const double PointTolerance = 0.000001;
     private const double MinimumDimension = 0.001;
@@ -59,23 +61,23 @@ public static class RevitDuctJsonExample
 
         foreach (var pipe in data.pipes ?? new List<BaseModelData>())
         {
-            Add(model, CreateStraight(pipe, lookup, unitScale, offset, ResolveShapeByStyle(pipe.Style, sectionShape)), pipe.Number);
+            Add(model, CreateStraight(pipe, lookup, unitScale, offset, ResolveShapeByStyle(pipe.Style, sectionShape)), pipe, "Pipe");
         }
         foreach (var elbow in data.elbows ?? new List<BaseElbowData>())
         {
-            Add(model, CreateElbow(elbow, lookup, unitScale, offset, ResolveShapeByStyle(elbow.Style, sectionShape)), elbow.Number);
+            Add(model, CreateElbow(elbow, lookup, unitScale, offset, ResolveShapeByStyle(elbow.Style, sectionShape)), elbow, "Elbow");
         }
         foreach (var tee in data.tees ?? new List<BaseTeeData>())
         {
-            Add(model, CreateTee(tee, lookup, unitScale, offset, ResolveShapeByStyle(tee.Style, sectionShape)), tee.Number);
+            Add(model, CreateTee(tee, lookup, unitScale, offset, ResolveShapeByStyle(tee.Style, sectionShape)), tee, "Tee");
         }
         foreach (var cross in data.crosses ?? new List<BaseCrossData>())
         {
-            Add(model, CreateCross(cross, lookup, unitScale, offset, ResolveShapeByStyle(cross.Style, sectionShape)), cross.Number);
+            Add(model, CreateCross(cross, lookup, unitScale, offset, ResolveShapeByStyle(cross.Style, sectionShape)), cross, "Cross");
         }
         foreach (var reducer in data.reducers ?? new List<BaseTransitionData>())
         {
-            Add(model, CreateReducer(reducer, lookup, unitScale, offset, ResolveShapeByStyle(reducer.Style, sectionShape)), reducer.Number);
+            Add(model, CreateReducer(reducer, lookup, unitScale, offset, ResolveShapeByStyle(reducer.Style, sectionShape)), reducer, "Reducer");
         }
 
         return model;
@@ -91,15 +93,37 @@ public static class RevitDuctJsonExample
         }
 
         var model = CreateModel(CreateSampleData(), 1.0);
-        var outputPath = Path.Combine(TestUtils.GetTestPath(), "duct-data-for-revit-example.gltf");
+        var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "duct-data-for-revit-example.gltf");
         model.ToGlTF(outputPath, false);
         return outputPath;
     }
 
-    private static void Add(Model model, Element element, string number)
+    private static void Add(Model model, Element element, BaseModelData source, string sourceType)
     {
-        element.Name = string.IsNullOrWhiteSpace(number) ? element.GetType().Name : number;
+        element.Id = CreateStableId(source, sourceType);
+        element.Name = string.IsNullOrWhiteSpace(source.Number) ? element.GetType().Name : source.Number;
         model.AddElement(element);
+    }
+
+    private static Guid CreateStableId(BaseModelData source, string sourceType)
+    {
+        var key = string.Join("|",
+                              sourceType,
+                              source.System ?? string.Empty,
+                              source.SubSystem ?? string.Empty,
+                              source.Number ?? string.Empty,
+                              PointKey(source.StartPosition),
+                              PointKey(source.EndPosition));
+        using var md5 = MD5.Create();
+        return new Guid(md5.ComputeHash(Encoding.UTF8.GetBytes(key)));
+    }
+
+    private static string PointKey(Point3d point)
+    {
+        return string.Join(",",
+                           point.X.ToString("R", CultureInfo.InvariantCulture),
+                           point.Y.ToString("R", CultureInfo.InvariantCulture),
+                           point.Z.ToString("R", CultureInfo.InvariantCulture));
     }
 
     private static StraightSegment CreateStraight(BaseModelData data,

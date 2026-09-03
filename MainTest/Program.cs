@@ -6,6 +6,7 @@ using Elements.Geometry.Profiles;
 using Elements.MEP.Tests;
 using Elements.Serialization.glTF;
 using Elements.Validators;
+using Elements.Pipeline.Core.Import;
 using ExCSS;
 using RoutingEngine.Core;
 using System;
@@ -19,12 +20,12 @@ namespace MainTest
         static void Main(string[] args)
         {
 
-            var gltfPath = RevitDuctJsonExample.Run("D:/GitProjects/Elements/MainTest/Duct.json", 0.001);
+            var gltfPath = RevitDuctJsonImporter.Run("D:/GitProjects/Elements/MainTest/Duct.json", 0.001);
             Console.WriteLine(gltfPath);
 
             //if (args.Length > 0)
             //{
-            //    var gltfPath = RevitDuctJsonExample.Run(args[0]);
+            //    var gltfPath = RevitDuctJsonImporter.Run(args[0]);
             //    Console.WriteLine(gltfPath);
             //    return;
             //}
